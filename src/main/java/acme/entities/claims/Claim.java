@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 
 import acme.client.components.basis.AbstractEntity;
@@ -14,6 +15,7 @@ import acme.client.components.mappings.Automapped;
 import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.ValidEmail;
 import acme.client.components.validation.ValidMoment;
+import acme.client.helpers.SpringHelper;
 import acme.constraints.ValidLongText;
 import acme.entities.flights.Leg;
 import acme.realms.Agent;
@@ -47,21 +49,31 @@ public class Claim extends AbstractEntity {
 	@Automapped
 	private ClaimType			type;
 
-	@Mandatory
-	@Valid
-	@Automapped
-	private ClaimStatus			status;
+	// Derived attributes -----------------------------------------------------
+
+
+	@Transient
+	public ClaimStatus status() {
+		ClaimStatus result;
+		TrackingLogRepository repository;
+
+		repository = SpringHelper.getBean(TrackingLogRepository.class);
+		result = repository.findMaxPercentageTrackingLog(this.getId()).getStatus();
+
+		return result;
+	}
 
 	// Relationships ----------------------------------------------------------
 
-	@Mandatory
-	@Valid
-	@ManyToOne(optional = false)
-	private Agent				agent;
 
 	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
-	private Leg					leg;
+	private Agent	agent;
+
+	@Mandatory
+	@Valid
+	@ManyToOne(optional = false)
+	private Leg		leg;
 
 }

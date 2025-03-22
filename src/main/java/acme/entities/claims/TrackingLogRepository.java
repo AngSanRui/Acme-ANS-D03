@@ -11,4 +11,7 @@ public interface TrackingLogRepository extends AbstractRepository {
 
 	@Query("select MAX(t.percentage) from TrackingLog t WHERE t.claim.id = :claimId")
 	Integer findMaxPercentage(int claimId);
+
+	@Query("select t from TrackingLog t WHERE t.claim.id = :claimId")
+	TrackingLog findMaxPercentageTrackingLog(int claimId);
 }
