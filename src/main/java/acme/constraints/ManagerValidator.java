@@ -27,8 +27,6 @@ public class ManagerValidator extends AbstractValidator<ValidManager, Manager> {
 	@Override
 	public boolean isValid(final Manager manager, final ConstraintValidatorContext context) {
 
-		if (manager == null)
-			return false;
 		if (context == null)
 			return false;
 
