@@ -16,8 +16,8 @@ import acme.client.components.basis.AbstractEntity;
 import acme.client.components.mappings.Automapped;
 import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.ValidMoment;
-import acme.client.components.validation.ValidString;
 import acme.client.helpers.MomentHelper;
+import acme.constraints.ValidIATACode;
 import acme.entities.aircrafts.Aircraft;
 import acme.entities.airports.Airport;
 import lombok.Getter;
@@ -33,7 +33,7 @@ public class Leg extends AbstractEntity {
 
 	// Attributes
 	@Mandatory
-	@ValidString(pattern = "^[A-Z]{3}\\d{4}$", message = "{validation.leg.flightNumber}")
+	@ValidIATACode
 	@Column(unique = true)
 	private String				flightNumber;
 
@@ -55,11 +55,12 @@ public class Leg extends AbstractEntity {
 
 	// Derived attributes
 	@Transient
-	public Duration getDuration() {
-		if (this.scheduledDeparture != null && this.scheduledArrival != null)
-			return MomentHelper.computeDuration(this.scheduledDeparture, this.scheduledArrival);
-		else
-			return Duration.ZERO;
+	public long getDurationInHours() {
+		if (this.scheduledDeparture != null && this.scheduledArrival != null) {
+			Duration duration = MomentHelper.computeDuration(this.scheduledDeparture, this.scheduledArrival);
+			return duration.toHours();
+		} else
+			return 0;
 	}
 
 

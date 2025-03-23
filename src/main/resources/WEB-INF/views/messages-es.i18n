@@ -1,7 +1,7 @@
 # messages-es.i18n
 
 validation.manager.identifierNumber = El número de identificación debe seguir el patrón ^[A-Z]{2,3}\d{6}$
-validation.leg.flightNumber = El número de un vuelo debe seguir el patrón ^[A-Z]{2}\\d{4}$
+validation.leg.flightNumber = Este código debe estar compuesto por el código IATA de la aerolínea seguido de cuatro dígitos, únicos, el patrón ^[A-Z]{2}\\d{4}$
 validation.airport.code = El código de un aeropuerto debe seguir el patrón ^[A-Z]{3}$
 validation.airport.contactPhoneNumber = El número de teléfono de contacto debe seguir el patrón ^\\+?\\d{6,15}$
 validation.airline.code = El código de una aerolínea debe seguir el patrón ^[A-Z]{3}$
