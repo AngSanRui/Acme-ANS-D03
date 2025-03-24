@@ -1,7 +1,7 @@
 # messages-en.i18n
 
 validation.manager.identifierNumber = The identifier number must follow the pattern ^[A-Z]{2,3}\d{6}$
-validation.leg.flightNumber = The number of a flight must follow the pattern ^[A-Z]{2}\\d{4}$
+validation.leg.flightNumber = This code must be composed of the airline's IATA code followed by four digits, unique, the pattern ^[A-Z]{2}\\d{4}$
 validation.airport.code = The code of an airport must follow the pattern ^[A-Z]{3}$
 validation.airport.contactPhoneNumber = The contact phone number must follow the pattern ^\\+?\\d{6,15}$
 validation.airline.code = The code of an airline must follow the pattern ^[A-Z]{3}$
@@ -17,4 +17,4 @@ validation.maintenanceRecords.nextInspectionDate = The next inspection date must
 validation.technicians.licenseNumber = The license number of a technician must follow the pattern ^[A-Z]{2-3}\\d{6}$
 validation.technicians.phoneNumber = The phone number of a technician must follow the pattern ^\\+?\\d{6,15}$
 validation.flightCrewMember.code = The employee code must start with the initials of the name and surname of the employee
-validation.booking.locatorCode = The locator code must follow the pattern ^[A-Z0-9]{6,8}$
+validation.booking.locatorCode = The locator code must follow the pattern ^[A-Z0-9]{6,8}$ 
