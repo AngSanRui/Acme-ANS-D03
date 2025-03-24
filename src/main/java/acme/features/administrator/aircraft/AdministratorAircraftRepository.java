@@ -13,8 +13,8 @@ import acme.entities.aircrafts.Aircraft;
 public interface AdministratorAircraftRepository extends AbstractRepository {
 
 	@Query("select a from Aircraft a where a.id = :id")
-	Aircraft findAnnouncementById(int id);
+	Aircraft findAircraftById(int id);
 
 	@Query("select a from Aircraft a")
-	Collection<Aircraft> findAllAnnouncements();
+	Collection<Aircraft> findAllAircrafts();
 }
