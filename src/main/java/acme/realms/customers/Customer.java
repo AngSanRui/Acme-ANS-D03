@@ -24,33 +24,33 @@ public class Customer extends AbstractRole {
 
 	// Attributes
 	@Mandatory
-	@Column(unique = true)
 	@ValidString(min = 1, max = 9, pattern = "^[A-Z]{2,3}\\d{6}$")
+	@Column(unique = true)
 	private String				identifier;
 
 	@Mandatory
-	@Automapped
 	@ValidString(min = 6, max = 15, pattern = "^\\+?\\d{6,15}$")
+	@Automapped
 	private String				phone;
 
 	@Mandatory
-	@Automapped
 	@ValidString(min = 1, max = 255)
+	@Automapped
 	private String				physicalAddress;
 
 	@Mandatory
-	@Automapped
 	@ValidString(min = 1, max = 50)
+	@Automapped
 	private String				city;
 
 	@Mandatory
-	@Automapped
 	@ValidString(min = 1, max = 50)
+	@Automapped
 	private String				country;
 
 	@Optional
-	@Automapped
 	@ValidNumber(min = 0, max = 500000)
+	@Automapped
 	private Integer				points;
 
 	// Relationships
