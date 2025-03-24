@@ -14,7 +14,7 @@ of software solutions.  The goal of this project is to develop a WIS to assist a
 charter flights.  This includes flight scheduling, booking management, crew management, incident reporting and 
 resolution, as well as aircraft maintenance.
 
-Dashboard link: https://github.com/users/alevarmun1/projects/4/views/1
+Dashboard link: https://github.com/users/AngSanRui/projects/1/views/1
 
 - **/fragments/**
  
