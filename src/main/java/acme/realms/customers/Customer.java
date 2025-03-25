@@ -11,6 +11,8 @@ import acme.client.components.validation.Optional;
 import acme.client.components.validation.ValidNumber;
 import acme.client.components.validation.ValidString;
 import acme.constraints.ValidCustomerIdentifier;
+import acme.constraints.ValidLongText;
+import acme.constraints.ValidShortText;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,33 +26,33 @@ public class Customer extends AbstractRole {
 
 	// Attributes
 	@Mandatory
-	@Column(unique = true)
 	@ValidString(min = 1, max = 9, pattern = "^[A-Z]{2,3}\\d{6}$")
+	@Column(unique = true)
 	private String				identifier;
 
 	@Mandatory
-	@Automapped
 	@ValidString(min = 6, max = 15, pattern = "^\\+?\\d{6,15}$")
+	@Automapped
 	private String				phone;
 
 	@Mandatory
+	@ValidLongText
 	@Automapped
-	@ValidString(min = 1, max = 255)
 	private String				physicalAddress;
 
 	@Mandatory
+	@ValidShortText
 	@Automapped
-	@ValidString(min = 1, max = 50)
 	private String				city;
 
 	@Mandatory
+	@ValidShortText
 	@Automapped
-	@ValidString(min = 1, max = 50)
 	private String				country;
 
 	@Optional
-	@Automapped
 	@ValidNumber(min = 0, max = 500000)
+	@Automapped
 	private Integer				points;
 
 	// Relationships
