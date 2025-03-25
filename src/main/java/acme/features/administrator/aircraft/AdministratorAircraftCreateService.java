@@ -5,9 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.principals.Administrator;
+import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.aircrafts.Aircraft;
+import acme.entities.aircrafts.AircraftStatus;
+import acme.entities.airlines.Airline;
 
 @GuiService
 public class AdministratorAircraftCreateService extends AbstractGuiService<Administrator, Aircraft> {
@@ -32,7 +35,13 @@ public class AdministratorAircraftCreateService extends AbstractGuiService<Admin
 
 	@Override
 	public void bind(final Aircraft aircraft) {
-		super.bindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeigth", "status", "details", "airline");
+		int airlineId;
+		Airline airline;
+
+		airlineId = super.getRequest().getData("airline", int.class);
+		airline = this.repository.findAirlineById(airlineId);
+		super.bindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeigth", "status", "details");
+		aircraft.setAirline(airline);
 	}
 
 	@Override
@@ -48,8 +57,12 @@ public class AdministratorAircraftCreateService extends AbstractGuiService<Admin
 	@Override
 	public void unbind(final Aircraft aircraft) {
 		Dataset dataset;
+		SelectChoices choices;
+
+		choices = SelectChoices.from(AircraftStatus.class, aircraft.getStatus());
 
 		dataset = super.unbindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeigth", "status", "details", "airline");
+		dataset.put("statuses", choices);
 
 		super.getResponse().addData(dataset);
 	}
