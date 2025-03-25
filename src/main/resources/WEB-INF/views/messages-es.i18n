@@ -18,3 +18,4 @@ validation.technicians.licenseNumber = El número de licencia de un técnico deb
 validation.technicians.phoneNumber = El número de teléfono de un técnico debe seguir el patrón ^\\+?\\d{6,15}$
 validation.flightCrewMember.code = El código de empleado debe empezar con las iniciales del nombre y apellido del empleado
 validation.booking.locatorCode = El código localizador debe seguir el patrón ^[A-Z0-9]{6,8}$
+validation.customer.uniqueIdentifier = El identificador debe ser único
