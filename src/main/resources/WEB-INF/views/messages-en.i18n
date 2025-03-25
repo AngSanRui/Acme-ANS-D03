@@ -16,5 +16,6 @@ validation.service.promotionCode2 = The promotion code of a service must follow 
 validation.maintenanceRecords.nextInspectionDate = The next inspection date must be after the current maintenance moment
 validation.technicians.licenseNumber = The license number of a technician must follow the pattern ^[A-Z]{2-3}\\d{6}$
 validation.technicians.phoneNumber = The phone number of a technician must follow the pattern ^\\+?\\d{6,15}$
-validation.flightCrewMember.code = The employee code must start with the initials of the name and surname of the employee
+validation.flightCrewMember.codeFormat = The employee code must start with the initials of the name and surname of the employee
+validation.flightCrewMember.codeNotUnique = The employee code must be unique
 validation.booking.locatorCode = The locator code must follow the pattern ^[A-Z0-9]{6,8}$ 
