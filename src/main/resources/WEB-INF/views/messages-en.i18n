@@ -18,4 +18,4 @@ validation.technicians.licenseNumber = The license number of a technician must f
 validation.technicians.phoneNumber = The phone number of a technician must follow the pattern ^\\+?\\d{6,15}$
 validation.flightCrewMember.codeFormat = The employee code must start with the initials of the name and surname of the employee
 validation.flightCrewMember.codeNotUnique = The employee code must be unique
-validation.booking.locatorCode = The locator code must follow the pattern ^[A-Z0-9]{6,8}$ 
+validation.customer.uniqueIdentifier = The identifier must be unique
