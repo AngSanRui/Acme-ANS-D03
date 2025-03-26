@@ -16,8 +16,9 @@ import acme.client.components.basis.AbstractEntity;
 import acme.client.components.mappings.Automapped;
 import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.ValidMoment;
+import acme.client.components.validation.ValidString;
 import acme.client.helpers.MomentHelper;
-import acme.constraints.ValidIATACode;
+import acme.constraints.ValidIATACodeLeg;
 import acme.entities.aircrafts.Aircraft;
 import acme.entities.airports.Airport;
 import lombok.Getter;
@@ -26,6 +27,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@ValidIATACodeLeg
 public class Leg extends AbstractEntity {
 
 	// Serialisation identifier
@@ -33,7 +35,7 @@ public class Leg extends AbstractEntity {
 
 	// Attributes
 	@Mandatory
-	@ValidIATACode
+	@ValidString(pattern = "^[A-Z]{3}\\d{4}$")
 	@Column(unique = true)
 	private String				flightNumber;
 
