@@ -9,7 +9,7 @@
 	<acme:input-integer code="administrator.aircraft.form.label.capacity" path="capacity"/>
 	<acme:input-double code="administrator.aircraft.form.label.cargoWeigth" path="cargoWeigth"/>
 	<acme:input-select code="administrator.aircraft.form.label.status" path="status" choices="${statuses}"/>
-	<acme:input-integer code="administrator.aircraft.form.label.airline" path="airline"/>
+	<acme:input-select code="administrator.aircraft.form.label.airline" path="airline" choices="${airlines}"/>
 	<acme:input-textbox code="administrator.aircraft.form.label.details" path="details"/>
 	<jstl:choose>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
@@ -19,5 +19,5 @@
 		<jstl:when test="${_command == 'create'}">
 			<acme:submit code="administrator.aircraft.form.button.create" action="/administrator/aircraft/create"/>
 		</jstl:when>		
-	</jstl:choose>		
+	</jstl:choose>			
 </acme:form>

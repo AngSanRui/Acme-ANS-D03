@@ -19,3 +19,4 @@ validation.technicians.phoneNumber = El número de teléfono de un técnico debe
 validation.flightCrewMember.codeFormat = El código de empleado debe empezar con las iniciales del nombre y apellido del empleado
 validation.flightCrewMember.codeNotUnique = El código de empleado tiene que ser único
 validation.customer.uniqueIdentifier = El identificador debe ser único
+administrator.aircraft.create.null-airline = La aerolinea no puede estar vacía
