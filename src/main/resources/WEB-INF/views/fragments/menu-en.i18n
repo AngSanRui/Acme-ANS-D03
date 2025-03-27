@@ -39,8 +39,8 @@ master.menu.consumer.favourite-link = Favourite link
 
 # master.menu.customer ##########################################################
 
-master.menu.consumer = Customer
-master.menu.consumer.list-bookings = List Bookings
+master.menu.customer = Customer
+master.menu.customer.list-bookings = List Bookings
 
 # master.menu.user-account ####################################################
 

@@ -1,9 +1,13 @@
 customer.booking.list.title = Listing of bookings
 
 customer.booking.list.label.locatorCode = Locator Code:
+customer.booking.list.label.purchaseMoment = Purchase Moment:
 customer.booking.list.label.travelClass = Travel Class:
 customer.booking.list.label.price = Price:
-customer.booking.list.label.fligth = Flight:
+customer.booking.list.label.lastCreditCardDigits = 4 Last Digits of the Credit Card used to purchase the Booking:
+customer.booking.list.label.customer = Customer:
+customer.booking.list.label.flight = Flight:
+
 
 customer.booking.list.button.create = Create
 
@@ -16,16 +20,7 @@ customer.booking.form.label.price = Price:
 customer.booking.form.label.lastCreditCardDigits = 4 Last Digits of the Credit Card used to purchase the Booking:
 customer.booking.form.label.customer = Customer:
 customer.booking.form.label.flight = Flight:
-
-
-customer.booking.list.label.locatorCode = Locator Code:
-customer.booking.list.label.purchaseMoment = Purchase Moment:
-customer.booking.list.label.travelClass = Travel Class:
-customer.booking.list.label.price = Price:
-customer.booking.list.label.lastCreditCardDigits = 4 Last Digits of the Credit Card used to purchase the Booking:
-customer.booking.list.label.customer = Customer:
-customer.booking.list.label.flight = Flight:
-
+customer.booking.form.button.passengers = Passengers:
 
 customer.booking.form.button.update = Update
 customer.booking.form.button.delete = Delete

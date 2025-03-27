@@ -20,7 +20,7 @@ customer.booking.form.label.price = Precio:
 customer.booking.form.label.lastCreditCardDigits = 4 últimos dígitos de la tarjeta de crédito usada para hacer la reserva:
 customer.booking.form.label.customer = Cliente:
 customer.booking.form.label.flight = Vuelo:
-customer.booking.form.label.passengers = Pasajeros:
+customer.booking.form.button.passengers = Pasajeros:
 
 customer.booking.form.button.update = Actualizar
 customer.booking.form.button.delete = Eliminar
