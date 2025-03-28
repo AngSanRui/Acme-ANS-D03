@@ -13,7 +13,7 @@ import acme.entities.passengers.Passenger;
 @Repository
 public interface CustomerPassengerRepository extends AbstractRepository {
 
-	@Query("select p from Passenger p where p.id = id")
+	@Query("select p from Passenger p where p.id = :id")
 	Passenger findPassengerById(Integer id);
 
 	@Query("select p from Passenger p")
@@ -22,6 +22,6 @@ public interface CustomerPassengerRepository extends AbstractRepository {
 	@Query("select t.passenger from Takes t where t.booking.id = :bookingId")
 	Collection<Passenger> findAllPassengersByBookingId(Integer bookingId);
 
-	@Query("select b from Booking b where b.id = id")
+	@Query("select b from Booking b where b.id = :id")
 	Booking findBookingById(Integer id);
 }
