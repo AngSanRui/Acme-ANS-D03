@@ -18,7 +18,7 @@ import acme.client.components.validation.ValidMoment;
 import acme.client.helpers.SpringHelper;
 import acme.constraints.ValidLongText;
 import acme.entities.flights.Leg;
-import acme.realms.Agent;
+import acme.realms.agents.Agent;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,16 +49,26 @@ public class Claim extends AbstractEntity {
 	@Automapped
 	private ClaimType			type;
 
+	@Mandatory
+	@Valid
+	@Automapped
+	private boolean				draftMode;
+
 	// Derived attributes -----------------------------------------------------
 
 
 	@Transient
-	public ClaimStatus status() {
+	public ClaimStatus getStatus() {
 		ClaimStatus result;
 		TrackingLogRepository repository;
 
 		repository = SpringHelper.getBean(TrackingLogRepository.class);
-		result = repository.findMaxPercentageTrackingLog(this.getId()).getStatus();
+		Integer size = repository.findAllTrackingLogs(this.getId()).size();
+
+		if (size > 0)
+			result = repository.findTrackingLogsOrderedByTime(this.getId()).get(0).getStatus();
+		else
+			result = ClaimStatus.PENDING;
 
 		return result;
 	}

@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.validation.AbstractValidator;
 import acme.client.components.validation.Validator;
+import acme.client.helpers.MomentHelper;
+import acme.entities.claims.ClaimStatus;
 import acme.entities.claims.TrackingLog;
 import acme.entities.claims.TrackingLogRepository;
-import acme.entities.claims.ClaimStatus;
 
 @Validator
 public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, TrackingLog> {
@@ -49,12 +50,15 @@ public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, Tr
 			boolean onlyPending;
 			onlyPending = trackingLog.getStatus().equals(ClaimStatus.PENDING);
 			super.state(context, onlyPending, "status", "acme.validation.trackingLog.resolution-Taken.message");
-			/*
-			 * boolean ascending;
-			 * Integer actualMax = this.repository.findMaxPercentage(trackingLog.getClaim().getId());
-			 * ascending = trackingLog.getPercentage() > actualMax;
-			 * super.state(context, ascending, "percentage", "acme.validation.trackingLog.ascending-percentage.message");
-			 */
+
+			boolean ascending;
+			TrackingLog actualMax = this.repository.findTrackingLogsOrderedByTime(trackingLog.getClaim().getId()).get(0);
+			//System.out.println("TiempoMax =" + actualMax.getCreationMoment() + "; Tiempo actual = " + trackingLog.getCreationMoment());
+			if (MomentHelper.isAfter(trackingLog.getCreationMoment(), actualMax.getCreationMoment())) {
+
+				ascending = trackingLog.getPercentage() > actualMax.getPercentage();
+				super.state(context, ascending, "percentage", "acme.validation.trackingLog.ascending-percentage.message");
+			}
 		}
 		result = !super.hasErrors(context);
 		return result;

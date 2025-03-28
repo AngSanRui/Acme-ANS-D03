@@ -1,6 +1,8 @@
 
 package acme.entities.claims;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +14,9 @@ public interface TrackingLogRepository extends AbstractRepository {
 	@Query("select MAX(t.percentage) from TrackingLog t WHERE t.claim.id = :claimId")
 	Integer findMaxPercentage(int claimId);
 
-	@Query("select t from TrackingLog t WHERE t.claim.id = :claimId")
-	TrackingLog findMaxPercentageTrackingLog(int claimId);
+	@Query("SELECT t FROM TrackingLog t WHERE t.claim.id = :claimId ORDER BY t.creationMoment DESC")
+	List<TrackingLog> findTrackingLogsOrderedByTime(int claimId);
+
+	@Query("SELECT t FROM TrackingLog t WHERE t.claim.id = :claimId")
+	List<TrackingLog> findAllTrackingLogs(int claimId);
 }
