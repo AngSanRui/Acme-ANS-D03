@@ -53,6 +53,10 @@ public class AdministratorAircraftUpdateService extends AbstractGuiService<Admin
 	public void validate(final Aircraft aircraft) {
 		boolean status;
 		Integer airlineId;
+		boolean confirmation;
+
+		confirmation = super.getRequest().getData("confirmation", boolean.class);
+		super.state(confirmation, "confirmation", "acme.validation.confirmation.message");
 
 		airlineId = super.getRequest().getData("airline", Integer.class);
 		status = airlineId != null;

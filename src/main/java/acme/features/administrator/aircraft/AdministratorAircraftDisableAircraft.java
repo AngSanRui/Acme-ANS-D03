@@ -15,10 +15,10 @@ import acme.entities.aircrafts.AircraftStatus;
 import acme.entities.airlines.Airline;
 
 @GuiService
-public class AdministratorAircraftCreateService extends AbstractGuiService<Administrator, Aircraft> {
+public class AdministratorAircraftDisableAircraft extends AbstractGuiService<Administrator, Aircraft> {
 
 	@Autowired
-	private AdministratorAircraftRepository repository;
+	AdministratorAircraftRepository repository;
 
 
 	@Override
@@ -29,22 +29,21 @@ public class AdministratorAircraftCreateService extends AbstractGuiService<Admin
 	@Override
 	public void load() {
 		Aircraft aircraft;
+		int id;
 
-		aircraft = new Aircraft();
-		aircraft.setCapacity(0);
-		aircraft.setCargoWeigth(0.00);
+		id = super.getRequest().getData("id", int.class);
+		aircraft = this.repository.findAircraftById(id);
 
 		super.getBuffer().addData(aircraft);
 	}
 
 	@Override
 	public void bind(final Aircraft aircraft) {
-		Airline airline = null;
+		int airlineId;
+		Airline airline;
 
-		Integer airlineId = super.getRequest().getData("airline", Integer.class);
-
-		if (airlineId != null)
-			airline = this.repository.findAirlineById(airlineId);
+		airlineId = super.getRequest().getData("airline", Integer.class);
+		airline = this.repository.findAirlineById(airlineId);
 
 		super.bindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeigth", "status", "details");
 		aircraft.setAirline(airline);
@@ -52,20 +51,15 @@ public class AdministratorAircraftCreateService extends AbstractGuiService<Admin
 
 	@Override
 	public void validate(final Aircraft aircraft) {
-		boolean status;
-		Integer airlineId;
 		boolean confirmation;
 
 		confirmation = super.getRequest().getData("confirmation", boolean.class);
 		super.state(confirmation, "confirmation", "acme.validation.confirmation.message");
-
-		airlineId = super.getRequest().getData("airline", Integer.class);
-		status = airlineId != null;
-		super.state(status, "*", "administrator.aircraft.create.null-airline");
 	}
 
 	@Override
 	public void perform(final Aircraft aircraft) {
+		aircraft.setStatus(AircraftStatus.UNDER_MAINTENANCE);
 		this.repository.save(aircraft);
 	}
 
@@ -73,17 +67,16 @@ public class AdministratorAircraftCreateService extends AbstractGuiService<Admin
 	public void unbind(final Aircraft aircraft) {
 		Dataset dataset;
 		SelectChoices statusChoices;
-		SelectChoices airlinesChoices;
+		SelectChoices airlineChoices;
 		Collection<Airline> airlines;
 
 		airlines = this.repository.findAllAirlines();
-		airlinesChoices = SelectChoices.from(airlines, "name", aircraft.getAirline());
-
+		airlineChoices = SelectChoices.from(airlines, "name", aircraft.getAirline());
 		statusChoices = SelectChoices.from(AircraftStatus.class, aircraft.getStatus());
 
 		dataset = super.unbindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeigth", "status", "details");
 		dataset.put("statuses", statusChoices);
-		dataset.put("airlines", airlinesChoices);
+		dataset.put("airlines", airlineChoices);
 
 		super.getResponse().addData(dataset);
 	}
