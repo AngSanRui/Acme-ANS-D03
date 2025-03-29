@@ -1,5 +1,5 @@
 
-package acme.entities.tasks;
+package acme.entities.task;
 
 public enum TaskType {
 
