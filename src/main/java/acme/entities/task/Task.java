@@ -1,5 +1,5 @@
 
-package acme.entities.tasks;
+package acme.entities.task;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -10,14 +10,14 @@ import acme.client.components.mappings.Automapped;
 import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.ValidNumber;
 import acme.constraints.ValidLongText;
-import acme.realms.Technicians;
+import acme.realms.technicians.Technician;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-public class Tasks extends AbstractEntity {
+public class Task extends AbstractEntity {
 
 	// Serialisation identifier
 
@@ -50,6 +50,6 @@ public class Tasks extends AbstractEntity {
 	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
-	private Technicians			technician;
+	private Technician			technician;
 
 }
