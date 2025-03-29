@@ -8,5 +8,8 @@
 	<acme:list-column code="customer.passenger.list.label.email" path="email" width="33%"/>
 	<acme:list-column code="customer.passenger.list.label.passport" path="passport" width="33%"/>
 </acme:list>
-
-<acme:button code="customer.passenger.list.button.create" action="/customer/passenger/create"/>
+<jstl:choose>
+	<jstl:when test="${_command == 'list'}">
+		<acme:button code="customer.passenger.list.button.create" action="/customer/passenger/create"/>
+	</jstl:when>
+</jstl:choose>

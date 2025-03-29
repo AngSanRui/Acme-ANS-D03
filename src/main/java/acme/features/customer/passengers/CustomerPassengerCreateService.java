@@ -1,8 +1,6 @@
 
 package acme.features.customer.passengers;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
@@ -12,7 +10,7 @@ import acme.entities.passengers.Passenger;
 import acme.realms.customers.Customer;
 
 @GuiService
-public class CustomerPassengerListService extends AbstractGuiService<Customer, Passenger> {
+public class CustomerPassengerCreateService extends AbstractGuiService<Customer, Passenger> {
 
 	@Autowired
 	private CustomerPassengerRepository repository;
@@ -25,10 +23,32 @@ public class CustomerPassengerListService extends AbstractGuiService<Customer, P
 
 	@Override
 	public void load() {
-		Collection<Passenger> passengers;
-		int customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		passengers = this.repository.findAllPassengersByCustomerId(customerId);
-		super.getBuffer().addData(passengers);
+		Passenger passenger;
+		Integer customerId;
+		Customer customer;
+
+		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		customer = this.repository.findCustomerById(customerId);
+
+		passenger = new Passenger();
+		passenger.setCustomer(customer);
+		super.getBuffer().addData(passenger);
+	}
+
+	@Override
+	public void bind(final Passenger passenger) {
+
+		super.bindObject(passenger, "name", "email", "passport", "dateOfBirth", "specialNeeds");
+	}
+
+	@Override
+	public void validate(final Passenger passenger) {
+		;
+	}
+
+	@Override
+	public void perform(final Passenger passenger) {
+		this.repository.save(passenger);
 	}
 
 	@Override

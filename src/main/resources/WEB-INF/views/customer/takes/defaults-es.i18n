@@ -1,0 +1,6 @@
+customer.takes.form.title = Añadir pasajero a su reserva
+
+customer.takes.form.booking = Id de su reserva
+customer.takes.form.passenger = Pasajero
+
+customer.takes.form.button.create = Añadir Pasajero

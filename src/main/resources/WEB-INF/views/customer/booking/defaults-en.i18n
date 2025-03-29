@@ -14,7 +14,7 @@ customer.booking.list.button.create = Create
 customer.booking.form.title = Booking
 
 customer.booking.form.label.locatorCode = Locator Code:
-customer.booking.foom.label.purchaseMoment = Purchase Moment:
+customer.booking.form.label.purchaseMoment = Purchase Moment:
 customer.booking.form.label.travelClass = Travel Class:
 customer.booking.form.label.price = Price:
 customer.booking.form.label.lastCreditCardDigits = 4 Last Digits of the Credit Card used to purchase the Booking:
@@ -25,3 +25,4 @@ customer.booking.form.button.passengers = Passengers:
 customer.booking.form.button.update = Update
 customer.booking.form.button.delete = Delete
 customer.booking.form.button.create = Create booking
+customer.booking.form.button.passengers.add = Add Passenger

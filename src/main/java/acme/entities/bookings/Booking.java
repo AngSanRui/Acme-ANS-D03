@@ -59,6 +59,11 @@ public class Booking extends AbstractEntity {
 	@Automapped
 	private Integer				lastCreditCardDigits;
 
+	@Mandatory
+	// HINT: @Valid by default.
+	@Automapped
+	private boolean				draftMode;
+
 	// Relationships
 
 	@Mandatory
