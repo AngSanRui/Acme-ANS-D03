@@ -19,6 +19,8 @@ administrator.airport.form.label.country = País:
 administrator.airport.form.label.website = Web: (Opcional)
 administrator.airport.form.label.email = Email: (Opcional)
 administrator.airport.form.label.contactPhoneNumber = Número de contacto: (Opcional)
+administrator.airport.form.label.confirmation = Confirmar
+
 
 administrator.airport.form.button.create = Crear
 administrator.airport.form.button.update = Modificar
