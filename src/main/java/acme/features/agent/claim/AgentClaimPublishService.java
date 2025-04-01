@@ -49,6 +49,18 @@ public class AgentClaimPublishService extends AbstractGuiService<Agent, Claim> {
 	}
 
 	@Override
+	public void bind(final Claim claim) {
+		int legId;
+		Leg leg;
+
+		legId = super.getRequest().getData("leg", int.class);
+		leg = this.repository.findLegById(legId);
+
+		super.bindObject(claim, "moment", "email", "description", "type", "status");
+		claim.setLeg(leg);
+	}
+
+	@Override
 	public void validate(final Claim claim) {
 		;
 	}

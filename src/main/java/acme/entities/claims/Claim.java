@@ -66,7 +66,7 @@ public class Claim extends AbstractEntity {
 		Integer size = repository.findAllTrackingLogs(this.getId()).size();
 
 		if (size > 0)
-			result = repository.findTrackingLogsOrderedByTime(this.getId()).get(0).getStatus();
+			result = repository.findTrackingLogsOrderedByPercentage(this.getId()).get(0).getStatus();
 		else
 			result = ClaimStatus.PENDING;
 

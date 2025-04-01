@@ -20,7 +20,7 @@ agent.claim.form.label.status = Estado:
 agent.claim.form.label.leg = Tramo:
 
 		
-agent.claim.form.button.duties = Registros
+agent.claim.form.button.tracking-logs = Registros
 agent.claim.form.button.update = Modificar
 agent.claim.form.button.delete = Borrar
 agent.claim.form.button.publish = Publicar

@@ -26,10 +26,10 @@
 
 	<jstl:choose>	 
 		<jstl:when test="${_command == 'show' && draftMode == false}">
-			<acme:button code="agent.claim.form.button.duties" action="/agent/claim/list?masterId=${id}"/>			
+			<acme:button code="agent.claim.form.button.tracking-logs" action="/agent/tracking-log/list?masterId=${id}"/>			
 		</jstl:when>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode == true}">
-			<acme:button code="agent.claim.form.button.duties" action="/agent/claim/list?masterId=${id}"/>
+			<acme:button code="agent.claim.form.button.tracking-logs" action="/agent/tracking-log/list?masterId=${id}"/>
 			<acme:submit code="agent.claim.form.button.update" action="/agent/claim/update"/>
 			<acme:submit code="agent.claim.form.button.delete" action="/agent/claim/delete"/>
 			<acme:submit code="agent.claim.form.button.publish" action="/agent/claim/publish"/>

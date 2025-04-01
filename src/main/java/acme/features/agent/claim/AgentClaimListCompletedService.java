@@ -35,6 +35,7 @@ public class AgentClaimListCompletedService extends AbstractGuiService<Agent, Cl
 		int agentId;
 
 		agentId = super.getRequest().getPrincipal().getActiveRealm().getId();
+
 		claims = this.repository.findAllClaimsByAgentId(agentId).stream().filter(c -> c.getStatus() == ClaimStatus.ACCEPTED || c.getStatus() == ClaimStatus.REJECTED).collect(Collectors.toList());
 		super.getBuffer().addData(claims);
 	}

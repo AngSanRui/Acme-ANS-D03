@@ -59,7 +59,7 @@ public class AgentClaimCreateService extends AbstractGuiService<Agent, Claim> {
 		leg = this.repository.findLegById(legId);
 
 		claim.setLeg(leg);
-		super.bindObject(claim, "moment", "email", "description", "type");
+		super.bindObject(claim, "moment", "email", "description", "type", "status");
 
 	}
 

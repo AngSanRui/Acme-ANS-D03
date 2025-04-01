@@ -32,7 +32,7 @@ public class AgentClaimController extends AbstractGuiController<Agent, Claim> {
 	private AgentClaimDeleteService			deleteService;
 
 	@Autowired
-	private AgentClaimDeleteService			publishService;
+	private AgentClaimPublishService		publishService;
 
 
 	@PostConstruct

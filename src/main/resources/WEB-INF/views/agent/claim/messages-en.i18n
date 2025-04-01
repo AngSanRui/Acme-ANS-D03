@@ -20,7 +20,7 @@ agent.claim.form.label.status = Status:
 agent.claim.form.label.leg = Leg:
 
 		
-agent.claim.form.button.duties = Duties
+agent.claim.form.button.tracking-logs = Tracking Logs
 agent.claim.form.button.update = Update
 agent.claim.form.button.delete = Delete
 agent.claim.form.button.publish = Publish
