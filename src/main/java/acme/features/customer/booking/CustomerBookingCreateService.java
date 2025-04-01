@@ -84,7 +84,7 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		customer = this.repository.findCustomerById(customerId);
 
-		dataset = super.unbindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits");
+		dataset = super.unbindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits", "draftMode");
 		dataset.put("classes", classChoices);
 		dataset.put("customer", customer);
 		dataset.put("flights", flightChoices);

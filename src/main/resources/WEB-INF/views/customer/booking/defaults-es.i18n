@@ -26,3 +26,4 @@ customer.booking.form.button.update = Actualizar
 customer.booking.form.button.delete = Eliminar
 customer.booking.form.button.create = Realizar una nueva reserva
 customer.booking.form.button.passengers.add = Añadir pasajeros
+customer.booking.form.button.publish = Publicar

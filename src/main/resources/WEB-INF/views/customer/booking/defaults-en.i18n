@@ -26,3 +26,4 @@ customer.booking.form.button.update = Update
 customer.booking.form.button.delete = Delete
 customer.booking.form.button.create = Create booking
 customer.booking.form.button.passengers.add = Add Passenger
+customer.booking.form.button.publish = Publish

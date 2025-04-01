@@ -28,7 +28,7 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		bookingId = super.getRequest().getData("id", int.class);
 		booking = this.repository.findBookingById(bookingId);
 
-		customerId = super.getRequest().getPrincipal().getAccountId();
+		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		customer = this.repository.findCustomerById(customerId);
 
 		status = booking != null && booking.isDraftMode() && super.getRequest().getPrincipal().hasRealm(customer);
@@ -54,10 +54,10 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		Integer flightId;
 		Flight flight;
 
-		flightId = super.getRequest().getData("flightId", int.class);
+		flightId = super.getRequest().getData("flight", int.class);
 		flight = this.repository.findFlightById(flightId);
 
-		customerId = super.getRequest().getPrincipal().getAccountId();
+		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		customer = this.repository.findCustomerById(customerId);
 
 		super.bindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits");
@@ -85,13 +85,13 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		Integer flightId;
 		Flight flight;
 
-		flightId = super.getRequest().getData("flightId", int.class);
+		flightId = super.getRequest().getData("flight", int.class);
 		flight = this.repository.findFlightById(flightId);
 
-		customerId = super.getRequest().getPrincipal().getAccountId();
+		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		customer = this.repository.findCustomerById(customerId);
 
-		dataset = super.unbindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits");
+		dataset = super.unbindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits", "draftMode");
 		dataset.put("flight", flight);
 		dataset.put("customer", customer);
 	}
