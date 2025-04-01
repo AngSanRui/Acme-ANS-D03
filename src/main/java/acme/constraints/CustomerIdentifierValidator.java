@@ -26,7 +26,7 @@ public class CustomerIdentifierValidator extends AbstractValidator<ValidCustomer
 	public boolean isValid(final Customer customer, final ConstraintValidatorContext context) {
 
 		assert context != null;
-
+		String id = "identifier";
 		boolean result;
 
 		if (customer.getUserAccount() == null)
@@ -34,11 +34,14 @@ public class CustomerIdentifierValidator extends AbstractValidator<ValidCustomer
 		else {
 			String initials = this.getInitials(customer);
 			String identifier = customer.getIdentifier();
+			Customer notUnique = this.repository.findAllCustomerIdentifiers(customer.getIdentifier());
 
-			if (identifier == null)
-				super.state(context, false, "identifier", "javax.validation.constraints.NotNull.message");
+			if (notUnique != null && !notUnique.equals(customer))
+				super.state(context, false, id, "validation.customer.uniqueIdentifier.message");
+			else if (identifier == null)
+				super.state(context, false, id, "javax.validation.constraints.NotNull.message");
 			else if (!identifier.startsWith(initials))
-				super.state(context, false, "identifier", "acme.constraints.ValidCustomerIdentifier.message");
+				super.state(context, false, id, "acme.constraints.ValidCustomerIdentifier.message");
 
 		}
 		result = !super.hasErrors(context);
