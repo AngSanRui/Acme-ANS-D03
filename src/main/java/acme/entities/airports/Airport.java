@@ -12,6 +12,7 @@ import acme.client.components.validation.Optional;
 import acme.client.components.validation.ValidEmail;
 import acme.client.components.validation.ValidString;
 import acme.client.components.validation.ValidUrl;
+import acme.constraints.ValidIATACodeAirport;
 import acme.constraints.ValidShortText;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@ValidIATACodeAirport
 public class Airport extends AbstractEntity {
 
 	// Serialisation identifier
@@ -33,7 +35,7 @@ public class Airport extends AbstractEntity {
 	@Mandatory
 	@ValidString(pattern = "^[A-Z]{3}$", message = "{validation.airport.code}")
 	@Column(unique = true)
-	private String				code;
+	private String				iataCode;
 
 	@Mandatory
 	@Valid

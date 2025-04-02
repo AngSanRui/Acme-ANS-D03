@@ -19,17 +19,14 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.ReportAsSingleViolation;
-import javax.validation.constraints.Pattern;
 
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {})
-@ReportAsSingleViolation
+@Constraint(validatedBy = {
+	IataCodeValidatorAirport.class
+})
 
-@Pattern(regexp = "^[A-Z]{3}\\d{4}$", message = "{validation.leg.flightNumber}")
-
-public @interface ValidIATACode {
+public @interface ValidIATACodeAirport {
 
 	// Standard validation properties -----------------------------------------
 

@@ -28,6 +28,8 @@
 
 		<acme:menu-option code="master.menu.administrator" access="hasRealm('Administrator')">
 			<acme:menu-suboption code="master.menu.administrator.list-user-accounts" action="/administrator/user-account/list"/>
+			<acme:menu-suboption code="master.menu.administrator.list-airports" action="/administrator/airport/list"/>
+			<acme:menu-suboption code="master.menu.administrator.list-aircrafts" action="/administrator/aircraft/list"/>
 			<acme:menu-separator/>
 			<acme:menu-suboption code="master.menu.administrator.populate-db-initial" action="/administrator/system/populate-initial"/>
 			<acme:menu-suboption code="master.menu.administrator.populate-db-sample" action="/administrator/system/populate-sample"/>			
@@ -49,6 +51,11 @@
 			<acme:menu-suboption code="master.menu.manager.list-flights" action="/manager/flight/list"/>
 		</acme:menu-option>
 		
+
+		<acme:menu-option code="master.menu.agent" access="hasRealm('Agent')">
+			<acme:menu-suboption code="master.menu.agent.list-completed" action="/agent/claim/list-completed"/>
+			<acme:menu-suboption code="master.menu.agent.list-pending" action="/agent/claim/list-pending"/>
+		</acme:menu-option>
 	</acme:menu-left>
 
 	<acme:menu-right>		

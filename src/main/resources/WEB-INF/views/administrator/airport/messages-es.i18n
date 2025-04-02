@@ -33,3 +33,27 @@ administrator.airport.list.label.contactPhoneNumber = Número de teléfono de co
 
 administrator.airport.form.button.create = Crear aeropuerto
 administrator.airport.list.button.create = Crear aeropuerto
+administrator.airport.form.title = Detalles de aeropuerto
+administrator.airport.list.title = Lista de aeropuertos
+
+administrator.airport.form.label.name = Nombre:
+administrator.airport.form.label.code = Código:
+administrator.airport.form.label.operationalScope = Alcance:
+administrator.airport.form.label.city = Ciudad:
+administrator.airport.form.label.country = País:
+administrator.airport.form.label.website = Web: (Opcional)
+administrator.airport.form.label.email = Email: (Opcional)
+administrator.airport.form.label.contactPhoneNumber = Número de contacto: (Opcional)
+administrator.airport.form.label.confirmation = Confirmar
+
+
+administrator.airport.form.button.create = Crear
+administrator.airport.form.button.update = Modificar
+administrator.airport.form.button.delete = Borrar
+ 
+administrator.airport.list.label.name = Nombre
+administrator.airport.list.label.country = Ciudad
+
+administrator.airport.list.button.create = Crear
+
+administrator.company.delete.company-linked = The company is linked to a proxy or a job
