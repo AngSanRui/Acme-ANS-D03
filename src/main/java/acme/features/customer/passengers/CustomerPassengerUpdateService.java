@@ -10,7 +10,7 @@ import acme.entities.passengers.Passenger;
 import acme.realms.customers.Customer;
 
 @GuiService
-public class CustomerPassengerCreateService extends AbstractGuiService<Customer, Passenger> {
+public class CustomerPassengerUpdateService extends AbstractGuiService<Customer, Passenger> {
 
 	@Autowired
 	private CustomerPassengerRepository repository;
@@ -18,32 +18,48 @@ public class CustomerPassengerCreateService extends AbstractGuiService<Customer,
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+		int passengerId;
+		Passenger passenger;
+		Customer customer;
+
+		passengerId = super.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerById(passengerId);
+
+		customer = passenger.getCustomer();
+
+		status = passenger.isDraftMode() && super.getRequest().getPrincipal().hasRealm(customer);
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
 		Passenger passenger;
+		int id;
+
+		id = super.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerById(id);
+
+		super.getBuffer().addData(passenger);
+	}
+
+	@Override
+	public void bind(final Passenger passenger) {
 		Integer customerId;
 		Customer customer;
 
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		customer = this.repository.findCustomerById(customerId);
 
-		passenger = new Passenger();
-		passenger.setCustomer(customer);
-		passenger.setDraftMode(true);
-		super.getBuffer().addData(passenger);
-	}
-
-	@Override
-	public void bind(final Passenger passenger) {
-
 		super.bindObject(passenger, "name", "email", "passport", "dateOfBirth", "specialNeeds");
+		passenger.setCustomer(customer);
 	}
 
 	@Override
 	public void validate(final Passenger passenger) {
+		boolean status;
+		status = passenger.isDraftMode();
+		super.state(status, "*", "customer.passenger.update.draft-mode");
 		;
 	}
 

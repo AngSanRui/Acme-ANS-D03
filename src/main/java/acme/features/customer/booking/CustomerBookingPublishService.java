@@ -1,13 +1,18 @@
 
 package acme.features.customer.booking;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import acme.client.components.datatypes.Money;
 import acme.client.components.models.Dataset;
+import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.bookings.Booking;
-import acme.entities.flights.Flight;
+import acme.entities.bookings.TravelClass;
+import acme.entities.passengers.Passenger;
 import acme.realms.customers.Customer;
 
 @GuiService
@@ -51,23 +56,43 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		Integer customerId;
 		Customer customer;
 
-		Integer flightId;
-		Flight flight;
-
-		flightId = super.getRequest().getData("flight", int.class);
-		flight = this.repository.findFlightById(flightId);
-
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		customer = this.repository.findCustomerById(customerId);
 
-		super.bindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits");
+		super.bindObject(booking, "locatorCode", "travelClass", "lastCreditCardDigits", "purchaseMoment");
 		booking.setCustomer(customer);
-		booking.setFlight(flight);
 	}
 
 	@Override
 	public void validate(final Booking booking) {
-		;
+		boolean statusNoPassengers;
+		boolean statusPassengersNotPublished;
+		boolean statusCreditCardNibble;
+
+		Collection<Passenger> passengers;
+		Integer nibble;
+
+		boolean passengersPublished = true;
+		passengers = this.repository.findAllPassengersByBookingId(booking.getId());
+		nibble = this.repository.findCreditCardNibbleByBookingId(booking.getId());
+
+		for (Passenger p : passengers) {
+			passengersPublished = !p.isDraftMode();
+			if (!passengersPublished)
+				break;
+		}
+
+		statusNoPassengers = !passengers.isEmpty();
+		statusPassengersNotPublished = passengersPublished;
+		statusCreditCardNibble = nibble != null;
+
+		super.state(statusNoPassengers, "*", "customer.booking.publish.no-passengers");
+		super.state(statusPassengersNotPublished, "*", "customer.booking.publish.no-passengers-published");
+		super.state(statusCreditCardNibble, "*", "customer.booking.publish.no-card-nibble-stored");
+
+		//flight = booking.getFlight();
+		//status = flight.getScheduledDeparture() < MomentHelper.getCurrentMoment() && flight.getDraftMode() == false;
+		//super.state(status, "*", "customer.booking.create.no-passe");
 	}
 
 	@Override
@@ -78,22 +103,19 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 
 	@Override
 	public void unbind(final Booking booking) {
-		Integer customerId;
-		Customer customer;
 		Dataset dataset;
+		SelectChoices classChoices;
+		String tag = booking.getFlight().getTag();
+		Money price = booking.getPrice();
 
-		Integer flightId;
-		Flight flight;
+		classChoices = SelectChoices.from(TravelClass.class, booking.getTravelClass());
 
-		flightId = super.getRequest().getData("flight", int.class);
-		flight = this.repository.findFlightById(flightId);
+		dataset = super.unbindObject(booking, "locatorCode", "travelClass", "lastCreditCardDigits", "purchaseMoment", "draftMode");
+		dataset.put("classes", classChoices);
+		dataset.put("tag", tag);
+		dataset.put("price", price);
 
-		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		customer = this.repository.findCustomerById(customerId);
-
-		dataset = super.unbindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits", "draftMode");
-		dataset.put("flight", flight);
-		dataset.put("customer", customer);
+		super.getResponse().addData(dataset);
 	}
 
 }

@@ -16,3 +16,5 @@ customer.passenger.form.label.dateOfBirth = Date of Birth:
 customer.passenger.form.label.specialNeeds = Special Needs:
 
 customer.passenger.form.button.create = Create Passenger
+
+customer.passenger.update.draft-mode = A passenger cannot be updated if it has been published

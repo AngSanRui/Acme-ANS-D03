@@ -35,4 +35,7 @@ public interface CustomerBookingRepository extends AbstractRepository {
 
 	@Query("select f from Flight f")
 	Collection<Flight> findAllFlights();
+
+	@Query("select b.lastCreditCardDigits from Booking b where b.id = :id")
+	Integer findCreditCardNibbleByBookingId(Integer id);
 }

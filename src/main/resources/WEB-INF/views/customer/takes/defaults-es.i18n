@@ -1,6 +1,8 @@
 customer.takes.form.title = Añadir pasajero a su reserva
 
-customer.takes.form.booking = Id de su reserva
+customer.takes.form.booking = Código de su reserva
 customer.takes.form.passenger = Pasajero
 
 customer.takes.form.button.create = Añadir Pasajero
+
+customer.takes.create.passenger.draft-mode = No se puede añadir el mismo pasajero dos veces

@@ -38,20 +38,26 @@ public class CustomerTakesCreateService extends AbstractGuiService<Customer, Tak
 		Passenger passenger = null;
 		Booking booking;
 
-		booking = this.repository.findBookingById(super.getRequest().getData("booking", Integer.class));
+		booking = this.repository.findBookingByLocatorCode(super.getRequest().getData("locatorCode", String.class));
 		Integer passengerId = super.getRequest().getData("passenger", Integer.class);
 
 		if (passengerId != null)
 			passenger = this.repository.findPassengerById(passengerId);
 
-		super.bindObject(takes, "passenger", "booking");
+		super.bindObject(takes, "passenger");
 		takes.setPassenger(passenger);
 		takes.setBooking(booking);
 	}
 
 	@Override
 	public void validate(final Takes takes) {
-		;
+		boolean status;
+		Collection<Passenger> passengers;
+
+		passengers = this.repository.findAllPassengersByBookingId(takes.getBooking().getId());
+		status = !passengers.contains(takes.getPassenger()) && !takes.getPassenger().isDraftMode();
+
+		super.state(status, "*", "customer.takes.create.passenger.draft-mode");
 	}
 
 	@Override
@@ -67,17 +73,23 @@ public class CustomerTakesCreateService extends AbstractGuiService<Customer, Tak
 		Integer customerId;
 		Integer bookingId;
 		Booking booking;
+		String locatorCode;
 
-		bookingId = super.getRequest().getData("masterId", Integer.class);
-		booking = this.repository.findBookingById(bookingId);
+		if (super.getRequest().hasData("masterId", Integer.class)) {
+			bookingId = super.getRequest().getData("masterId", Integer.class);
+			booking = this.repository.findBookingById(bookingId);
+		} else
+			booking = this.repository.findBookingByLocatorCode(super.getRequest().getData("locatorCode", String.class));
 
+		locatorCode = booking.getLocatorCode();
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		passengers = this.repository.findAllPassengersByCustomerId(customerId);
+		passengers = this.repository.findAllPublishedPassengersByCustomerId(customerId);
 		passengerChoices = SelectChoices.from(passengers, "name", takes.getPassenger());
 
 		dataset = super.unbindObject(takes, "passenger", "booking");
 		dataset.put("passengers", passengerChoices);
+		dataset.put("locatorCode", locatorCode);
 		dataset.put("booking", booking);
 
 		super.getResponse().addData(dataset);

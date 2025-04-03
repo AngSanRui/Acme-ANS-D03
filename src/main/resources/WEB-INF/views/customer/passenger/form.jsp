@@ -6,8 +6,16 @@
 <acme:form>	
 	<acme:input-textbox code="customer.passenger.form.label.name" path="name"/>
 	<acme:input-email code="customer.passenger.form.label.email" path="email"/>
-	<acme:input-textbox code="customer.passenger.form.label.passport" path="passport"/>
+	<acme:input-textbox code="customer.passenger.form.label.passport" path="passport" placeholder="12345BC"/>
 	<acme:input-moment code="customer.passenger.form.label.dateOfBirth" path="dateOfBirth"/>	
 	<acme:input-textbox code="customer.passenger.form.label.specialNeeds" path="specialNeeds"/>
-	<acme:submit code="customer.passenger.form.button.create" action="/customer/passenger/create"/>
+	<jstl:choose>
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode == true}">
+			<acme:submit code="customer.booking.form.button.update" action="/customer/passenger/update"/>
+			<acme:submit code="customer.booking.form.button.publish" action="/customer/passenger/publish"/>
+		</jstl:when>
+		<jstl:when test="${_command == 'create'}">
+			<acme:submit code="customer.passenger.form.button.create" action="/customer/passenger/create"/>
+		</jstl:when>		
+	</jstl:choose>	
 </acme:form>

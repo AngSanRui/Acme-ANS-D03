@@ -1,15 +1,17 @@
 
 package acme.features.customer.booking;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import acme.client.components.datatypes.Money;
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.bookings.Booking;
 import acme.entities.bookings.TravelClass;
-import acme.entities.flights.Flight;
 import acme.realms.customers.Customer;
 
 @GuiService
@@ -53,22 +55,32 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 		Integer customerId;
 		Customer customer;
 
-		Integer flightId;
-		Flight flight;
+		Date purchaseMoment;
 
-		flightId = super.getRequest().getData("flight", int.class);
-		flight = this.repository.findFlightById(flightId);
+		purchaseMoment = booking.getPurchaseMoment();
 
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		customer = this.repository.findCustomerById(customerId);
 
-		super.bindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits");
+		super.bindObject(booking, "locatorCode", "travelClass", "lastCreditCardDigits");
 		booking.setCustomer(customer);
-		booking.setFlight(flight);
+		booking.setPurchaseMoment(purchaseMoment);
 	}
 
 	@Override
 	public void validate(final Booking booking) {
+		boolean status;
+
+		status = booking.isDraftMode();
+
+		super.state(status, "*", "customer.booking.update.published-error");
+		//boolean status;
+		//Flight flight;
+
+		//flight = booking.getFlight();
+
+		//status = flight.getScheduledDeparture() < MomentHelper.getCurrentMoment() && flight.getDraftMode() == false;
+		//super.state(status, "*", "customer.booking.update.invalid-flight");
 		;
 	}
 
@@ -79,25 +91,19 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void unbind(final Booking booking) {
-		Integer customerId;
-		Customer customer;
 		Dataset dataset;
 		SelectChoices classChoices;
+		String tag = booking.getFlight().getTag();
+		Money price = booking.getPrice();
 
-		Integer flightId;
-		Flight flight;
-
-		flightId = super.getRequest().getData("flightId", int.class);
-		flight = this.repository.findFlightById(flightId);
-
-		customerId = super.getRequest().getPrincipal().getAccountId();
-		customer = this.repository.findCustomerById(customerId);
 		classChoices = SelectChoices.from(TravelClass.class, booking.getTravelClass());
 
-		dataset = super.unbindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits", "draftMode");
-		dataset.put("flight", flight);
-		dataset.put("customer", customer);
+		dataset = super.unbindObject(booking, "locatorCode", "travelClass", "lastCreditCardDigits", "purchaseMoment", "draftMode");
 		dataset.put("classes", classChoices);
+		dataset.put("tag", tag);
+		dataset.put("price", price);
+
+		super.getResponse().addData(dataset);
 	}
 
 }

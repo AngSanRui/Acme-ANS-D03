@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import acme.client.components.datatypes.Money;
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
 import acme.client.services.AbstractGuiService;
@@ -42,14 +43,21 @@ public class CustomerBookingShowService extends AbstractGuiService<Customer, Boo
 		Dataset dataset;
 		SelectChoices classChoices;
 		Collection<Passenger> passengers;
+		Money price;
+		String tag;
+
+		tag = booking.getFlight().getTag();
+		price = booking.getPrice();
 
 		passengers = this.repository.findAllPassengersByBookingId(booking.getId());
 
 		classChoices = SelectChoices.from(TravelClass.class, booking.getTravelClass());
 
-		dataset = super.unbindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits", "draftMode", "flight", "customer");
+		dataset = super.unbindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "lastCreditCardDigits", "draftMode", "customer");
 		dataset.put("classes", classChoices);
 		dataset.put("passengers", passengers);
+		dataset.put("price", price);
+		dataset.put("tag", tag);
 
 		super.getResponse().addData(dataset);
 	}

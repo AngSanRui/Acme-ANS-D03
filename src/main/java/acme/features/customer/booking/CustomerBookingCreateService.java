@@ -2,11 +2,13 @@
 package acme.features.customer.booking;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.bookings.Booking;
@@ -46,6 +48,9 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		Customer customer;
 		Integer flightId;
 		Flight flight;
+		Date purchaseMoment;
+
+		purchaseMoment = MomentHelper.getCurrentMoment();
 
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		customer = this.repository.findCustomerById(customerId);
@@ -53,9 +58,10 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		flightId = super.getRequest().getData("flight", int.class);
 		flight = this.repository.findFlightById(flightId);
 
-		super.bindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits", "customer", "flight");
+		super.bindObject(booking, "locatorCode", "travelClass", "lastCreditCardDigits");
 		booking.setCustomer(customer);
 		booking.setFlight(flight);
+		booking.setPurchaseMoment(purchaseMoment);
 	}
 
 	@Override
@@ -71,8 +77,7 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 	@Override
 	public void unbind(final Booking booking) {
 		Dataset dataset;
-		Integer customerId;
-		Customer customer;
+
 		SelectChoices classChoices;
 		SelectChoices flightChoices;
 		Collection<Flight> fligths;
@@ -81,12 +86,8 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		fligths = this.repository.findAllFlights();
 		flightChoices = SelectChoices.from(fligths, "tag", booking.getFlight());
 
-		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		customer = this.repository.findCustomerById(customerId);
-
-		dataset = super.unbindObject(booking, "locatorCode", "purchaseMoment", "travelClass", "price", "lastCreditCardDigits", "draftMode");
+		dataset = super.unbindObject(booking, "locatorCode", "travelClass", "lastCreditCardDigits", "draftMode");
 		dataset.put("classes", classChoices);
-		dataset.put("customer", customer);
 		dataset.put("flights", flightChoices);
 
 		super.getResponse().addData(dataset);
