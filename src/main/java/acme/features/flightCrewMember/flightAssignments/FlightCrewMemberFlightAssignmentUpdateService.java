@@ -73,19 +73,20 @@ public class FlightCrewMemberFlightAssignmentUpdateService extends AbstractGuiSe
 
 	@Override
 	public void validate(final FlightAssignment flightAssignment) {
-		boolean hasNoOtherLegs;
-		boolean hasNoPilot;
-		boolean hasNoCopilot;
 
+		boolean hasNoSimultaneousLegs;
 		//they cannot be assigned to multiple legs simultaneously
-		//	hasNoOtherLegs = this.repository.findFlightAssignmentsByCrewMember(flightAssignment.getFlightCrewMember()).isEmpty();
-		//	super.state(hasNoOtherLegs, "hasNoOtherLegs", "validation.flightAssignment.memberWithSimultaneousLegs");
+		Leg leg1 = flightAssignment.getLeg();
+		hasNoSimultaneousLegs = this.repository.findSimultaneousLegs(flightAssignment.getId(), leg1.getId(), leg1.getScheduledDeparture(), leg1.getScheduledArrival(), flightAssignment.getFlightCrewMember().getId()).isEmpty();
+		super.state(hasNoSimultaneousLegs, "hasNoSimultaneousLegs", "validation.flightAssignment.memberWithSimultaneousLegs");
 
 		boolean legExists;
 		Leg leg = this.repository.findLegById(flightAssignment.getLeg().getId());
 		legExists = leg != null;
 		super.state(legExists, "legExists", "validation.flightAssignment.legNotExists");
 
+		boolean hasNoPilot;
+		boolean hasNoCopilot;
 		//each leg can only have one pilot and one co-pilot
 		if (flightAssignment.getDuty() != null && flightAssignment.getDuty().equals(Duties.PILOT)) {
 			hasNoPilot = !this.repository.findPresentRolesInLeg(flightAssignment.getLeg()).contains(Duties.PILOT);

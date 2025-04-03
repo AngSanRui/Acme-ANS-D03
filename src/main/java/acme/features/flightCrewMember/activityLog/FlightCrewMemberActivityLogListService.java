@@ -38,12 +38,17 @@ public class FlightCrewMemberActivityLogListService extends AbstractGuiService<F
 	public void authorise() {
 		boolean status;
 		int masterId;
+		int activityLogId;
 		FlightAssignment assignment;
+		ActivityLog activityLog;
+
+		activityLogId = super.getRequest().getData("id", int.class);
+		activityLog = this.repository.findActivityLogById(activityLogId);
 
 		masterId = super.getRequest().getData("masterId", int.class);
 		assignment = this.repository.findAssignmentById(masterId);
 		//el 'or' de abajo indica que estarás autorizado a listar si eres quien creó el assignment o, si no, que el assignment esté publicado(no esté en draftMode)
-		status = assignment != null && (!assignment.getDraftMode() || super.getRequest().getPrincipal().hasRealm(assignment.getFlightCrewMember()));
+		status = assignment != null && (!activityLog.getDraftMode() || super.getRequest().getPrincipal().hasRealm(assignment.getFlightCrewMember()));
 
 		super.getResponse().setAuthorised(status);
 	}

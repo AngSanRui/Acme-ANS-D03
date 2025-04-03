@@ -76,10 +76,11 @@ public class FlightCrewMemberFlightAssignmentCreateService extends AbstractGuiSe
 	@Override
 	public void validate(final FlightAssignment flightAssignment) {
 
-		boolean hasNoOtherLegs;
+		boolean hasNoSimultaneousLegs;
 		//they cannot be assigned to multiple legs simultaneously
-		//	hasNoOtherLegs = this.repository.findFlightAssignmentsByCrewMember(flightAssignment.getFlightCrewMember()).isEmpty();
-		//	super.state(hasNoOtherLegs, "hasNoOtherLegs", "validation.flightAssignment.memberWithSimultaneousLegs");
+		Leg leg1 = flightAssignment.getLeg();
+		hasNoSimultaneousLegs = this.repository.findSimultaneousLegs(flightAssignment.getId(), leg1.getId(), leg1.getScheduledDeparture(), leg1.getScheduledArrival(), flightAssignment.getFlightCrewMember().getId()).isEmpty();
+		super.state(hasNoSimultaneousLegs, "hasNoSimultaneousLegs", "validation.flightAssignment.memberWithSimultaneousLegs");
 
 		boolean legExists;
 		Leg leg = this.repository.findLegById(flightAssignment.getLeg().getId());
