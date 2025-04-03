@@ -27,7 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @ValidMaintenanceRecord
-public class MaintenanceRecords extends AbstractEntity {
+public class MaintenanceRecord extends AbstractEntity {
 
 	// Serialisation identifier
 
@@ -54,6 +54,11 @@ public class MaintenanceRecords extends AbstractEntity {
 	@ValidMoney
 	@Automapped
 	private Money				estimatedCost;
+
+	@Mandatory
+	@Valid
+	@Automapped
+	private Boolean				draftMode;
 
 	@Optional
 	@ValidLongText
