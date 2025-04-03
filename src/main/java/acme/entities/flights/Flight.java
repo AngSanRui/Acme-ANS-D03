@@ -48,40 +48,38 @@ public class Flight extends AbstractEntity {
 
 	// Derived attributes
 	//	@Transient
-	//	public Date getScheduledDeparture() {
-	//		TypedQuery<Date> query = this.entityManager.createQuery("SELECT MIN(l.scheduledDeparture) FROM Leg l WHERE l.flight = :flight", Date.class);
-	//		query.setParameter("flight", this);
-	//		return query.getSingleResult();
-	//	}
+	//	@Query("SELECT MIN(l.scheduledDeparture) FROM Leg l WHERE l.flight = :flight")
+	//	public Date getScheduledDeparture();
+
 	//
-	//	@Transient
-	//	public Date getScheduledArrival() {
-	//		TypedQuery<Date> query = this.entityManager.createQuery("SELECT MAX(l.scheduledArrival) FROM Leg l WHERE l.flight = :flight", Date.class);
-	//		query.setParameter("flight", this);
-	//		return query.getSingleResult();
-	//	}
-	//
-	//	@Transient
-	//	public String getOriginCity() {
-	//		TypedQuery<String> query = this.entityManager.createQuery("SELECT l.departureAirport FROM Leg l WHERE l.flight = :flight ORDER BY l.scheduledDeparture ASC", String.class);
-	//		query.setParameter("flight", this);
-	//		return query.setMaxResults(1).getSingleResult();
-	//	}
-	//
-	//	@Transient
-	//	public String getDestinationCity() {
-	//		TypedQuery<String> query = this.entityManager.createQuery("SELECT l.arrivalAirport FROM Leg l WHERE l.flight = :flight ORDER BY l.scheduledArrival DESC", String.class);
-	//		query.setParameter("flight", this);
-	//		return query.setMaxResults(1).getSingleResult();
-	//	}
-	//
-	//	@Transient
-	//	public int getNumberOfLayovers() {
-	//		TypedQuery<Long> query = this.entityManager.createQuery("SELECT COUNT(l) FROM Leg l WHERE l.flight = :flight", Long.class);
-	//		query.setParameter("flight", this);
-	//		Long count = query.getSingleResult();
-	//		return count != null ? Math.max(count.intValue() - 1, 0) : 0;
-	//	}
+	//		@Transient
+	//		public Date getScheduledArrival() {
+	//			TypedQuery<Date> query = this.entityManager.createQuery("SELECT MAX(l.scheduledArrival) FROM Leg l WHERE l.flight = :flight", Date.class);
+	//			query.setParameter("flight", this);
+	//			return query.getSingleResult();
+	//		}
+	//	
+	//		@Transient
+	//		public String getOriginCity() {
+	//			TypedQuery<String> query = this.entityManager.createQuery("SELECT l.departureAirport FROM Leg l WHERE l.flight = :flight ORDER BY l.scheduledDeparture ASC", String.class);
+	//			query.setParameter("flight", this);
+	//			return query.setMaxResults(1).getSingleResult();
+	//		}
+	//	
+	//		@Transient
+	//		public String getDestinationCity() {
+	//			TypedQuery<String> query = this.entityManager.createQuery("SELECT l.arrivalAirport FROM Leg l WHERE l.flight = :flight ORDER BY l.scheduledArrival DESC", String.class);
+	//			query.setParameter("flight", this);
+	//			return query.setMaxResults(1).getSingleResult();
+	//		}
+	//	
+	//		@Transient
+	//		public int getNumberOfLayovers() {
+	//			TypedQuery<Long> query = this.entityManager.createQuery("SELECT COUNT(l) FROM Leg l WHERE l.flight = :flight", Long.class);
+	//			query.setParameter("flight", this);
+	//			Long count = query.getSingleResult();
+	//			return count != null ? Math.max(count.intValue() - 1, 0) : 0;
+	//		}
 
 	//	@Transient
 	//	public Date getScheduledDeparture(final FlightService flightService) {

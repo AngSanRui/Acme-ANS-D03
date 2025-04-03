@@ -3,12 +3,19 @@ package acme.constraints;
 
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import acme.client.components.validation.AbstractValidator;
 import acme.client.components.validation.Validator;
 import acme.realms.flightCrewMembers.FlightCrewMember;
+import acme.realms.flightCrewMembers.FlightCrewMemberRepository;
 
 @Validator
 public class CrewMemberCodeValidator extends AbstractValidator<ValidCrewMemberCode, FlightCrewMember> {
+
+	@Autowired
+	private FlightCrewMemberRepository repository;
+
 
 	@Override
 	protected void initialise(final ValidCrewMemberCode annotation) {
@@ -27,11 +34,14 @@ public class CrewMemberCodeValidator extends AbstractValidator<ValidCrewMemberCo
 		else {
 			String initials = this.getInitials(crewMember);
 			String code = crewMember.getEmployeeCode();
+			FlightCrewMember sameCode = this.repository.findMemberSameCode(code);
 
 			if (code == null)
 				super.state(context, false, "code", "javax.validation.constraints.NotNull.message");
 			else if (!code.startsWith(initials))
-				super.state(context, false, "code", "acme.validation.flightCrewMember.code");
+				super.state(context, false, "code", "validation.flightCrewMember.codeFormat");
+			else if (sameCode != null && !sameCode.equals(crewMember))
+				super.state(context, false, "code", "validation.flightCrewMember.codeNotUnique");
 
 		}
 		result = !super.hasErrors(context);

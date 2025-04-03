@@ -7,8 +7,8 @@ import javax.validation.Valid;
 
 import acme.client.components.basis.AbstractEntity;
 import acme.client.components.validation.Mandatory;
-import acme.entities.maintenanceRecords.MaintenanceRecords;
-import acme.entities.tasks.Tasks;
+import acme.entities.maintenanceRecords.MaintenanceRecord;
+import acme.entities.task.Task;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,10 +26,10 @@ public class Involves extends AbstractEntity {
 	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
-	private MaintenanceRecords	maintenanceRecord;
+	private MaintenanceRecord	maintenanceRecord;
 
 	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
-	private Tasks				task;
+	private Task				task;
 }
