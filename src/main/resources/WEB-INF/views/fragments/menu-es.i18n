@@ -38,6 +38,18 @@ master.menu.provider.favourite-link = Enlace favorito
 master.menu.consumer = Consumidor
 master.menu.consumer.favourite-link = Enlace favorito
 
+# master.menu.customer ##########################################################
+
+master.menu.customer = Cliente
+master.menu.customer.list-bookings = Ver reservas
+
+# master.menu.flightCrewMember ##########################################################
+
+master.menu.flightCrewMember = Miembro de la tripulación de vuelo
+master.menu.flightCrewMember.list-completedFlightAssignments = Listar encargos de vuelo completados
+master.menu.flightCrewMember.list-uncompletedFlightAssignments = Listar encargos de vuelo no completados
+master.menu.flightCrewMember.list-activityLog = Listar registros de actividad
+
 # master.menu.manager ##########################################################
 
 master.menu.manager = Manager
@@ -48,6 +60,7 @@ master.menu.manager.list-flights = Ver vuelos
 master.menu.agent = Agente
 master.menu.agent.list-completed = Reclamaciones resueltas
 master.menu.agent.list-pending = Reclamaciones pendientes
+
 
 # master.menu.user-account ####################################################
 

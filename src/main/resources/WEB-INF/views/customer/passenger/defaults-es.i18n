@@ -1,0 +1,9 @@
+customer.passenger.list.title = Tus Pasajeros
+
+customer.passenger.list.label.name = Nombre:
+customer.passenger.list.label.email = Email:
+customer.list.label.passport = Pasaporte:
+
+customer.passenger.list.button.create = Crear un nuevo pasajero
+
+
