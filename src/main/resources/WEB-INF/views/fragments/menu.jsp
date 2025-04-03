@@ -45,6 +45,11 @@
 			<acme:menu-suboption code="master.menu.consumer.favourite-link" action="http://www.example.com/"/>
 		</acme:menu-option>
 		
+		<acme:menu-option code="master.menu.manager" access="hasRealm('Manager')">
+			<acme:menu-suboption code="master.menu.manager.list-flights" action="/manager/flight/list"/>
+		</acme:menu-option>
+		
+
 		<acme:menu-option code="master.menu.agent" access="hasRealm('Agent')">
 			<acme:menu-suboption code="master.menu.agent.list-completed" action="/agent/claim/list-completed"/>
 			<acme:menu-suboption code="master.menu.agent.list-pending" action="/agent/claim/list-pending"/>
@@ -58,6 +63,8 @@
 			<acme:menu-suboption code="master.menu.user-account.provider-profile" action="/authenticated/provider/update" access="hasRealm('Provider')"/>
 			<acme:menu-suboption code="master.menu.user-account.become-consumer" action="/authenticated/consumer/create" access="!hasRealm('Consumer')"/>
 			<acme:menu-suboption code="master.menu.user-account.consumer-profile" action="/authenticated/consumer/update" access="hasRealm('Consumer')"/>
+			<acme:menu-suboption code="master.menu.user-account.become-manager" action="/authenticated/manager/create" access="!hasRealm('Manager')"/>
+			<acme:menu-suboption code="master.menu.user-account.manager-profile" action="/authenticated/manager/update" access="hasRealm('Manager')"/>
 		</acme:menu-option>
 	</acme:menu-right>
 </acme:menu-bar>
