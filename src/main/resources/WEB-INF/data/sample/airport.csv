@@ -1,4 +1,4 @@
-key,name,code,operationalScope,city,country,website,email,contactPhoneNumber
+key,name,iataCode,operationalScope,city,country,website,email,contactPhoneNumber
 #base entity
 airport-01,Lorem ipsum dolor sit ame,AAC,INTERNATIONAL,Lorem ipsum dolor sit ame,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,passenger@mail.com,+441279358395
 #name variations
