@@ -26,7 +26,6 @@ master.menu.administrator.list-aircrafts = Ver aviones
 master.menu.administrator.populate-db-initial = Poblar BD (inicial)
 master.menu.administrator.populate-db-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-system-down = Parar el sistema
-master.menu.administrator.list.airport = Lista de aeropuertos
 
 # master.menu.provider ########################################################
 
@@ -44,16 +43,6 @@ master.menu.technician = Técnico
 master.menu.technician.list-my-maintenance-records = ver mis registros de mantenimiento
 master.menu.technician.list-my-tasks = ver mis tareas
 
-# master.menu.manager ##########################################################
-
-master.menu.manager = Manager
-master.menu.manager.list-flights = Ver vuelos
-
-# master.menu.agent ##########################################################
-
-master.menu.agent = Agente
-master.menu.agent.list-completed = Reclamaciones resueltas
-master.menu.agent.list-pending = Reclamaciones pendientes
 # master.menu.user-account ####################################################
 
 master.menu.user-account = Cuenta
@@ -62,5 +51,3 @@ master.menu.user-account.become-provider = Hacerse proveedor
 master.menu.user-account.provider-profile = Perfil de proveedor
 master.menu.user-account.become-consumer = Hazte consumidor
 master.menu.user-account.consumer-profile = Perfil de consumidor
-master.menu.user-account.become-manager = Conviértete en manager
-master.menu.user-account.manager-profile = Perfil de manager

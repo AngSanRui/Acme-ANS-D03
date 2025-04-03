@@ -46,11 +46,6 @@ public class Flight extends AbstractEntity {
 	@Automapped
 	private String				description;
 
-	@Mandatory
-	// HINT: @Valid by default.
-	@Automapped
-	private boolean				draftMode;
-
 	// Derived attributes
 	//	@Transient
 	//	@Query("SELECT MIN(l.scheduledDeparture) FROM Leg l WHERE l.flight = :flight")
