@@ -12,10 +12,12 @@
 			<acme:input-textbox code="customer.booking.form.label.flight" path="tag" readonly="true"/>
 			<acme:input-money code="customer.booking.form.label.price" path="price" readonly="true"/>
 			<acme:input-moment code="customer.booking.form.label.purchaseMoment" path="purchaseMoment" readonly="true"/>
+			<acme:button code="customer.booking.form.button.passengers" action="/customer/passenger/listFromBooking?masterId=${id}"/>
+		</jstl:when>
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode == true}">
 			<acme:submit code="customer.booking.form.button.update" action="/customer/booking/update"/>
 			<acme:submit code="customer.booking.form.button.publish" action="/customer/booking/publish"/>
 			<acme:button code="customer.booking.form.button.passengers.add" action="/customer/takes/create?masterId=${id}"/>
-			<acme:button code="customer.booking.form.button.passengers" action="/customer/passenger/listFromBooking?masterId=${id}"/>
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
 			<acme:input-select code="customer.booking.form.label.flight" path="flight" choices="${flights}"/>
