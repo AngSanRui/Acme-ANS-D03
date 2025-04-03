@@ -3,12 +3,23 @@ package acme.constraints;
 
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import acme.client.components.validation.AbstractValidator;
 import acme.client.components.validation.Validator;
-import acme.realms.Agent;
+import acme.realms.agents.Agent;
+import acme.realms.agents.AgentRepository;
 
 @Validator
 public class AgentValidator extends AbstractValidator<ValidAgent, Agent> {
+
+	// Internal state ---------------------------------------------------------
+
+	@Autowired
+	private AgentRepository repository;
+
+	// ConstraintValidator interface ------------------------------------------
+
 
 	@Override
 	protected void initialise(final ValidAgent annotation) {
@@ -24,6 +35,16 @@ public class AgentValidator extends AbstractValidator<ValidAgent, Agent> {
 		if (agent == null)
 			super.state(context, false, "*", "javax.validation.constraints.NotNull.message");
 		else {
+			{
+				boolean uniqueAgent;
+				Agent existingAgent;
+
+				existingAgent = this.repository.findAgentByCode(agent.getCode());
+				uniqueAgent = existingAgent == null || existingAgent.equals(agent);
+
+				super.state(context, uniqueAgent, "ticker", "acme.validation.job.duplicated-code.message");
+			}
+
 			String initials = this.getInitials(agent);
 			String code = agent.getCode();
 			boolean initialsLikeName;
