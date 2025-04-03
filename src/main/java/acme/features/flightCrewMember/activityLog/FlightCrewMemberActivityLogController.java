@@ -1,5 +1,5 @@
 /*
- * AdministratorAirlineController.java
+ * FlightCrewMemberActivityLogController.java
  *
  * Copyright (C) 2012-2025 Rafael Corchuelo.
  *
@@ -10,33 +10,39 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.administrator.airlines;
+package acme.features.flightCrewMember.activityLog;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import acme.client.components.principals.Administrator;
 import acme.client.controllers.AbstractGuiController;
 import acme.client.controllers.GuiController;
-import acme.entities.airlines.Airline;
+import acme.entities.activityLog.ActivityLog;
+import acme.realms.flightCrewMembers.FlightCrewMember;
 
 @GuiController
-public class AdministratorAirlineController extends AbstractGuiController<Administrator, Airline> {
+public class FlightCrewMemberActivityLogController extends AbstractGuiController<FlightCrewMember, ActivityLog> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private AdministratorAirlineListService		listService;
+	private FlightCrewMemberActivityLogListService		listService;
 
 	@Autowired
-	private AdministratorAirlineShowService		showService;
+	private FlightCrewMemberActivityLogShowService		showService;
 
 	@Autowired
-	private AdministratorAirlineCreateService	createService;
+	private FlightCrewMemberActivityLogCreateService	createService;
 
 	@Autowired
-	private AdministratorAirlineUpdateService	updateService;
+	private FlightCrewMemberActivityLogUpdateService	updateService;
+
+	@Autowired
+	private FlightCrewMemberActivityLogDeleteService	deleteService;
+
+	@Autowired
+	private FlightCrewMemberActivityLogPublishService	publishService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -47,6 +53,9 @@ public class AdministratorAirlineController extends AbstractGuiController<Admini
 		super.addBasicCommand("show", this.showService);
 		super.addBasicCommand("create", this.createService);
 		super.addBasicCommand("update", this.updateService);
+		super.addBasicCommand("delete", this.deleteService);
+
+		super.addCustomCommand("publish", "update", this.publishService);
 	}
 
 }
