@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.Valid;
 
 import acme.client.components.basis.AbstractEntity;
@@ -15,10 +14,9 @@ import acme.client.components.mappings.Automapped;
 import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.ValidEmail;
 import acme.client.components.validation.ValidMoment;
-import acme.client.helpers.SpringHelper;
 import acme.constraints.ValidLongText;
 import acme.entities.flights.Leg;
-import acme.realms.agents.Agent;
+import acme.realms.Agent;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -52,38 +50,18 @@ public class Claim extends AbstractEntity {
 	@Mandatory
 	@Valid
 	@Automapped
-	private boolean				draftMode;
-
-	// Derived attributes -----------------------------------------------------
-
-
-	@Transient
-	public ClaimStatus getStatus() {
-		ClaimStatus result;
-		TrackingLogRepository repository;
-
-		repository = SpringHelper.getBean(TrackingLogRepository.class);
-		Integer size = repository.findAllTrackingLogs(this.getId()).size();
-
-		if (size > 0)
-			result = repository.findTrackingLogsOrderedByPercentage(this.getId()).get(0).getStatus();
-		else
-			result = ClaimStatus.PENDING;
-
-		return result;
-	}
+	private ClaimStatus			status;
 
 	// Relationships ----------------------------------------------------------
 
+	@Mandatory
+	@Valid
+	@ManyToOne(optional = false)
+	private Agent				agent;
 
 	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
-	private Agent	agent;
-
-	@Mandatory
-	@Valid
-	@ManyToOne(optional = false)
-	private Leg		leg;
+	private Leg					leg;
 
 }

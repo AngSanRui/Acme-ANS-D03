@@ -22,7 +22,6 @@ master.menu.anonymous.favourite-link-RubLopExp = **63**98: López Expósito, Rub
 
 master.menu.administrator = Administrator
 master.menu.administrator.list-user-accounts = List user accounts
-master.menu.administrator.list-airports = List of airports
 master.menu.administrator.list-aircrafts = List aircrafts
 master.menu.administrator.populate-db-initial = Populate DB (initial)
 master.menu.administrator.populate-db-sample = Populate DB (samples)
@@ -61,6 +60,12 @@ master.menu.manager.list-flights = List Flights
 master.menu.agent = Agent
 master.menu.agent.list-completed = Completed claims
 master.menu.agent.list-pending = Pending claims
+
+# master.menu.technician ##########################################################
+
+master.menu.technician = Technician
+master.menu.technician.list-my-maintenance-records = List my maintenance records
+master.menu.technician.list-my-tasks = List my tasks
 
 # master.menu.user-account ####################################################
 

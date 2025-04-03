@@ -8,10 +8,10 @@ import javax.validation.ConstraintValidatorContext;
 import acme.client.components.validation.AbstractValidator;
 import acme.client.components.validation.Validator;
 import acme.client.helpers.MomentHelper;
-import acme.entities.maintenanceRecords.MaintenanceRecords;
+import acme.entities.maintenanceRecords.MaintenanceRecord;
 
 @Validator
-public class MaintenanceRecordsValidator extends AbstractValidator<ValidMaintenanceRecord, MaintenanceRecords> {
+public class MaintenanceRecordsValidator extends AbstractValidator<ValidMaintenanceRecord, MaintenanceRecord> {
 
 	// ConstraintValidator interface
 
@@ -21,7 +21,7 @@ public class MaintenanceRecordsValidator extends AbstractValidator<ValidMaintena
 	}
 
 	@Override
-	public boolean isValid(final MaintenanceRecords record, final ConstraintValidatorContext context) {
+	public boolean isValid(final MaintenanceRecord record, final ConstraintValidatorContext context) {
 
 		assert context != null;
 
@@ -30,7 +30,6 @@ public class MaintenanceRecordsValidator extends AbstractValidator<ValidMaintena
 		if (record == null)
 			super.state(context, false, "*", "javax.validation.constraints.NotNull.message");
 		else {
-
 			Date maintenanceMoment = record.getMaintenanceMoment();
 			Date nextInspection = record.getNextInspectionDate();
 

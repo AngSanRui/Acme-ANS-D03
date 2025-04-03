@@ -36,14 +36,19 @@ public class Task extends AbstractEntity {
 	private String				description;
 
 	@Mandatory
-	@ValidNumber(min = 0, max = 10)
+	@ValidNumber(min = 0, max = 10, message = "validation.task.priority")
 	@Automapped
 	private Integer				priority;
 
 	@Mandatory
-	@ValidNumber(min = 0, max = 1000)
+	@ValidNumber(min = 0, max = 1000, message = "validation.task.estimatedDuration")
 	@Automapped
 	private Integer				estimatedDuration;
+
+	@Mandatory
+	@Valid
+	@Automapped
+	private Boolean				draftMode;
 
 	// Relationships
 
