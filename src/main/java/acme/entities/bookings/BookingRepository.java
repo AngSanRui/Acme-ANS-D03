@@ -12,4 +12,7 @@ public interface BookingRepository extends AbstractRepository {
 	@Query("select b from Booking b where b.locatorCode = :locatorCode")
 	Booking findBookingByLocatorCode(String locatorCode);
 
+	@Query("select COUNT(t) from Takes t where t.booking.id = :id")
+	Integer getNumberOfPassengersByBookingId(int id);
+
 }

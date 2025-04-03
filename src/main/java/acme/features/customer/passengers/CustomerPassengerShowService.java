@@ -1,8 +1,6 @@
 
 package acme.features.customer.passengers;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
@@ -12,7 +10,7 @@ import acme.entities.passengers.Passenger;
 import acme.realms.customers.Customer;
 
 @GuiService
-public class CustomerPassengerListService extends AbstractGuiService<Customer, Passenger> {
+public class CustomerPassengerShowService extends AbstractGuiService<Customer, Passenger> {
 
 	@Autowired
 	private CustomerPassengerRepository repository;
@@ -25,17 +23,19 @@ public class CustomerPassengerListService extends AbstractGuiService<Customer, P
 
 	@Override
 	public void load() {
-		Collection<Passenger> passengers;
-		int customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		passengers = this.repository.findAllPassengersByCustomerId(customerId);
-		super.getBuffer().addData(passengers);
+		Passenger passenger;
+		int id;
+
+		id = super.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerById(id);
+
+		super.getBuffer().addData(passenger);
 	}
 
 	@Override
 	public void unbind(final Passenger passenger) {
 		Dataset dataset;
-		dataset = super.unbindObject(passenger, "name", "email", "passport", "dateOfBirth", "specialNeeds");
-
+		dataset = super.unbindObject(passenger, "name", "email", "passport", "dateOfBirth", "specialNeeds", "draftMode");
 		super.getResponse().addData(dataset);
 	}
 

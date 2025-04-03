@@ -25,3 +25,10 @@ customer.booking.form.button.passengers = Pasajeros:
 customer.booking.form.button.update = Actualizar
 customer.booking.form.button.delete = Eliminar
 customer.booking.form.button.create = Realizar una nueva reserva
+customer.booking.form.button.passengers.add = Añadir pasajeros
+customer.booking.form.button.publish = Publicar
+
+customer.booking.publish.no-passengers = No se puede publicar una reserva sin pasajeros
+customer.booking.publish.no-passengers-published = No se puede publicar una reserva con pasajeros no publicados
+customer.booking.publish.no-card-nibble-stored = No se puede publicar una reserva sin una tarjeta de crédito
+customer.booking.update.published-error = No se puede actualizar una reserva que ya está publicada
