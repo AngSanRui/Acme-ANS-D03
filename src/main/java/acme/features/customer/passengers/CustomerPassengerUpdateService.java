@@ -45,14 +45,7 @@ public class CustomerPassengerUpdateService extends AbstractGuiService<Customer,
 
 	@Override
 	public void bind(final Passenger passenger) {
-		Integer customerId;
-		Customer customer;
-
-		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		customer = this.repository.findCustomerById(customerId);
-
 		super.bindObject(passenger, "name", "email", "passport", "dateOfBirth", "specialNeeds");
-		passenger.setCustomer(customer);
 	}
 
 	@Override
@@ -71,6 +64,7 @@ public class CustomerPassengerUpdateService extends AbstractGuiService<Customer,
 	@Override
 	public void unbind(final Passenger passenger) {
 		Dataset dataset;
+
 		dataset = super.unbindObject(passenger, "name", "email", "passport", "dateOfBirth", "specialNeeds");
 
 		super.getResponse().addData(dataset);

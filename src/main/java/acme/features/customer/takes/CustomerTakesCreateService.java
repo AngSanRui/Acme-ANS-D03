@@ -35,14 +35,13 @@ public class CustomerTakesCreateService extends AbstractGuiService<Customer, Tak
 
 	@Override
 	public void bind(final Takes takes) {
-		Passenger passenger = null;
+		Passenger passenger;
 		Booking booking;
 
 		booking = this.repository.findBookingByLocatorCode(super.getRequest().getData("locatorCode", String.class));
 		Integer passengerId = super.getRequest().getData("passenger", Integer.class);
 
-		if (passengerId != null)
-			passenger = this.repository.findPassengerById(passengerId);
+		passenger = this.repository.findPassengerById(passengerId);
 
 		super.bindObject(takes, "passenger");
 		takes.setPassenger(passenger);
@@ -51,13 +50,17 @@ public class CustomerTakesCreateService extends AbstractGuiService<Customer, Tak
 
 	@Override
 	public void validate(final Takes takes) {
-		boolean status;
+		boolean statusNoPassenger;
+		boolean statusSamePassenger;
 		Collection<Passenger> passengers;
 
 		passengers = this.repository.findAllPassengersByBookingId(takes.getBooking().getId());
-		status = !passengers.contains(takes.getPassenger()) && !takes.getPassenger().isDraftMode();
 
-		super.state(status, "*", "customer.takes.create.passenger.draft-mode");
+		statusNoPassenger = takes.getPassenger() != null;
+		super.state(statusNoPassenger, "*", "customer.takes.create.passenger.no-passenger");
+
+		statusSamePassenger = !passengers.contains(takes.getPassenger());
+		super.state(statusSamePassenger, "*", "customer.takes.create.passenger.same-passenger");
 	}
 
 	@Override

@@ -5,4 +5,7 @@ customer.takes.form.passenger = Passenger
 
 customer.takes.form.button.create = Add Passenger
 
-customer.takes.create.passenger.draft-mode = The same passenger cannot be added
+customer.takes.create.passenger.draft-mode = A passenger cannot be added if it is not published
+customer.takes.create.passenger.no-passenger = A passenger must be added
+customer.takes.create.passenger.same-passenger = The same passenger cannot be added
+

@@ -5,4 +5,6 @@ customer.takes.form.passenger = Pasajero
 
 customer.takes.form.button.create = Añadir Pasajero
 
-customer.takes.create.passenger.draft-mode = No se puede añadir el mismo pasajero dos veces
+customer.takes.create.passenger.draft-mode = Un pasajero no se puede añadir si no se ha publicado antes
+customer.takes.create.passenger.no-passenger = Se debe añadir al menos un pasajero
+customer.takes.create.passenger.same-passenger = No se puede añadir el mismo pasajero dos veces

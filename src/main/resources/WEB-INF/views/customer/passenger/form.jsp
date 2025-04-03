@@ -10,7 +10,7 @@
 	<acme:input-moment code="customer.passenger.form.label.dateOfBirth" path="dateOfBirth"/>	
 	<acme:input-textbox code="customer.passenger.form.label.specialNeeds" path="specialNeeds"/>
 	<jstl:choose>
-		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode == true}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|publish') && draftMode == true}">
 			<acme:submit code="customer.booking.form.button.update" action="/customer/passenger/update"/>
 			<acme:submit code="customer.booking.form.button.publish" action="/customer/passenger/publish"/>
 		</jstl:when>
