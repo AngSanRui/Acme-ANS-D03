@@ -1,0 +1,7 @@
+customer.passenger.list.title = Your Passengers
+
+customer.passenger.list.label.name = Name:
+customer.passenger.list.label.email = Email:
+customer.list.label.passport = Passport:
+
+customer.passenger.list.button.create = Create a new passenger
