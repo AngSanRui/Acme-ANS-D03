@@ -22,10 +22,12 @@ master.menu.anonymous.favourite-link-RubLopExp = **63**98: López Expósito, Rub
 
 master.menu.administrator = Administrator
 master.menu.administrator.list-user-accounts = List user accounts
+master.menu.administrator.list-airports = List of airports
 master.menu.administrator.list-aircrafts = List aircrafts
 master.menu.administrator.populate-db-initial = Populate DB (initial)
 master.menu.administrator.populate-db-sample = Populate DB (samples)
 master.menu.administrator.shut-system-down = Shut system down
+master.menu.administrator.list.airport = Airports list
 
 # master.menu.provider ########################################################
 
@@ -49,6 +51,17 @@ master.menu.flightCrewMember.list-completedFlightAssignments = List completed fl
 master.menu.flightCrewMember.list-uncompletedFlightAssignments = List uncompleted flight assignments
 master.menu.flightCrewMember.list-activityLog = List activity logs
 
+# master.menu.manager ##########################################################
+
+master.menu.manager = Manager
+master.menu.manager.list-flights = List Flights
+
+# master.menu.agent ##########################################################
+
+master.menu.agent = Agent
+master.menu.agent.list-completed = Completed claims
+master.menu.agent.list-pending = Pending claims
+
 # master.menu.user-account ####################################################
 
 master.menu.user-account = Account
@@ -57,3 +70,5 @@ master.menu.user-account.become-provider = Become a provider
 master.menu.user-account.provider-profile = Provider profile
 master.menu.user-account.become-consumer = Become a consumer
 master.menu.user-account.consumer-profile = Consumer profile
+master.menu.user-account.become-manager = Become a manager
+master.menu.user-account.manager-profile = Manager profile

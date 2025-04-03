@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.validation.AbstractValidator;
 import acme.client.components.validation.Validator;
+import acme.entities.claims.ClaimStatus;
 import acme.entities.claims.TrackingLog;
 import acme.entities.claims.TrackingLogRepository;
-import acme.entities.claims.ClaimStatus;
 
 @Validator
 public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, TrackingLog> {
@@ -49,10 +49,14 @@ public class TrackingLogValidator extends AbstractValidator<ValidTrackingLog, Tr
 			boolean onlyPending;
 			onlyPending = trackingLog.getStatus().equals(ClaimStatus.PENDING);
 			super.state(context, onlyPending, "status", "acme.validation.trackingLog.resolution-Taken.message");
+
 			/*
 			 * boolean ascending;
-			 * Integer actualMax = this.repository.findMaxPercentage(trackingLog.getClaim().getId());
-			 * ascending = trackingLog.getPercentage() > actualMax;
+			 * TrackingLog actualMax = this.repository.findTrackingLogsOrderedByPercentage(trackingLog.getClaim().getId()).get(0);
+			 * if (trackingLog.getPercentage() == 100.00)
+			 * ascending = trackingLog.getPercentage() == actualMax.getPercentage();
+			 * else
+			 * ascending = trackingLog.getPercentage() > actualMax.getPercentage();
 			 * super.state(context, ascending, "percentage", "acme.validation.trackingLog.ascending-percentage.message");
 			 */
 		}

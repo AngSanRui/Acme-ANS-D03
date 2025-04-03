@@ -28,3 +28,4 @@ validation.flightAssignment.alreadyHasPilot = El tramo del encargo no puede tene
 validation.flightAssignment.alreadyHasCopilot = El tramo del encargo no puede tener múltiples copilotos
 validation.activityLog.legHasNotEnded = El tramo enlazado con el encargo del registro de actividad tiene que haber terminado
 validation.activityLog.assignmentIsNotPublished = El encargo del registro de actividad tiene que estar publicado
+validation.flightAssignment.legNotExists = El id del tramo no pudo ser encontrado, selecciona uno correcto

@@ -26,6 +26,7 @@ import acme.entities.flightAssignment.AssignmentStatus;
 import acme.entities.flightAssignment.Duties;
 import acme.entities.flightAssignment.FlightAssignment;
 import acme.entities.flights.Leg;
+import acme.realms.flightCrewMembers.AvailabilityStatus;
 import acme.realms.flightCrewMembers.FlightCrewMember;
 
 @GuiService
@@ -41,7 +42,12 @@ public class FlightCrewMemberFlightAssignmentCreateService extends AbstractGuiSe
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		FlightCrewMember member;
+		int crewMemberId;
+
+		crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		member = this.repository.findCrewMemberById(crewMemberId);
+		super.getResponse().setAuthorised(member.getAvailabilityStatus().equals(AvailabilityStatus.AVAILABLE));
 	}
 
 	@Override
@@ -74,6 +80,11 @@ public class FlightCrewMemberFlightAssignmentCreateService extends AbstractGuiSe
 		//they cannot be assigned to multiple legs simultaneously
 		//	hasNoOtherLegs = this.repository.findFlightAssignmentsByCrewMember(flightAssignment.getFlightCrewMember()).isEmpty();
 		//	super.state(hasNoOtherLegs, "hasNoOtherLegs", "validation.flightAssignment.memberWithSimultaneousLegs");
+
+		boolean legExists;
+		Leg leg = this.repository.findLegById(flightAssignment.getLeg().getId());
+		legExists = leg != null;
+		super.state(legExists, "legExists", "validation.flightAssignment.legNotExists");
 
 		boolean hasNoPilot;
 		boolean hasNoCopilot;

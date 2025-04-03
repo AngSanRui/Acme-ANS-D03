@@ -26,6 +26,7 @@ import acme.entities.flightAssignment.AssignmentStatus;
 import acme.entities.flightAssignment.Duties;
 import acme.entities.flightAssignment.FlightAssignment;
 import acme.entities.flights.Leg;
+import acme.realms.flightCrewMembers.AvailabilityStatus;
 import acme.realms.flightCrewMembers.FlightCrewMember;
 
 @GuiService
@@ -49,7 +50,7 @@ public class FlightCrewMemberFlightAssignmentUpdateService extends AbstractGuiSe
 		masterId = super.getRequest().getData("id", int.class);
 		assignment = this.repository.findFlightAssignmentById(masterId);
 		member = assignment == null ? null : assignment.getFlightCrewMember();
-		status = assignment != null && assignment.getDraftMode() && super.getRequest().getPrincipal().hasRealm(member);
+		status = assignment != null && assignment.getDraftMode() && super.getRequest().getPrincipal().hasRealm(member) && member.getAvailabilityStatus().equals(AvailabilityStatus.AVAILABLE);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -79,6 +80,11 @@ public class FlightCrewMemberFlightAssignmentUpdateService extends AbstractGuiSe
 		//they cannot be assigned to multiple legs simultaneously
 		//	hasNoOtherLegs = this.repository.findFlightAssignmentsByCrewMember(flightAssignment.getFlightCrewMember()).isEmpty();
 		//	super.state(hasNoOtherLegs, "hasNoOtherLegs", "validation.flightAssignment.memberWithSimultaneousLegs");
+
+		boolean legExists;
+		Leg leg = this.repository.findLegById(flightAssignment.getLeg().getId());
+		legExists = leg != null;
+		super.state(legExists, "legExists", "validation.flightAssignment.legNotExists");
 
 		//each leg can only have one pilot and one co-pilot
 		if (flightAssignment.getDuty() != null && flightAssignment.getDuty().equals(Duties.PILOT)) {

@@ -29,3 +29,4 @@ validation.flightAssignment.alreadyHasPilot = The leg of the assignment can not 
 validation.flightAssignment.alreadyHasCopilot = The leg of the assignment can not have multiple copilots
 validation.activityLog.legHasNotEnded = The leg linked to the assignment in the activity log has to have ended
 validation.activityLog.assignmentIsNotPublished = The activity log's flight assignment must be published
+validation.flightAssignment.legNotExists = The leg Id could not be found, select a correct one

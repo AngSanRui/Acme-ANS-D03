@@ -22,7 +22,6 @@ import acme.client.repositories.AbstractRepository;
 import acme.entities.flightAssignment.Duties;
 import acme.entities.flightAssignment.FlightAssignment;
 import acme.entities.flights.Leg;
-import acme.realms.flightCrewMembers.AvailabilityStatus;
 import acme.realms.flightCrewMembers.FlightCrewMember;
 
 @Repository
@@ -43,13 +42,16 @@ public interface FlightCrewMemberFlightAssignmentRepository extends AbstractRepo
 	@Query("select a from FlightAssignment a")
 	Collection<FlightAssignment> findAllAssignments();
 
-	@Query("select f from FlightCrewMember f where f.availabilityStatus = :status")
-	Collection<FlightCrewMember> findAllFlightCrewMembers(AvailabilityStatus status);
+	@Query("select f from FlightCrewMember f where f.id = :crewMemberId")
+	FlightCrewMember findCrewMemberById(int crewMemberId);
 
 	@Query("select l from Leg l")
 	Collection<Leg> findAllLegs();
 
 	@Query("select f.duty from FlightAssignment f where f.leg.id = :legId")
 	Collection<Duties> findPresentRolesInLeg(Leg legId);
+
+	@Query("select l from Leg l where l.id = :id")
+	Leg findLegById(int id);
 
 }

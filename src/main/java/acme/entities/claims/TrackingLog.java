@@ -32,7 +32,12 @@ public class TrackingLog extends AbstractEntity {
 	@Mandatory
 	@ValidMoment(past = true)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date				moment;
+	private Date				updateMoment;
+
+	@Mandatory
+	@ValidMoment(past = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date				creationMoment;
 
 	@Mandatory
 	@ValidShortText
@@ -47,12 +52,17 @@ public class TrackingLog extends AbstractEntity {
 	@Mandatory
 	@Valid
 	@Automapped
-	private ClaimStatus	status;
+	private ClaimStatus			status;
 
 	@Optional
 	@ValidLongText
 	@Automapped
 	private String				resolution;
+
+	@Mandatory
+	@Valid
+	@Automapped
+	private boolean				draftMode;
 
 	// Relationships ----------------------------------------------------------
 
