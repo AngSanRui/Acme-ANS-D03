@@ -39,9 +39,9 @@ public class CrewMemberCodeValidator extends AbstractValidator<ValidCrewMemberCo
 			if (code == null)
 				super.state(context, false, "code", "javax.validation.constraints.NotNull.message");
 			else if (!code.startsWith(initials))
-				super.state(context, false, "code", "acme.validation.flightCrewMember.codeFormat");
+				super.state(context, false, "code", "validation.flightCrewMember.codeFormat");
 			else if (sameCode != null && !sameCode.equals(crewMember))
-				super.state(context, false, "code", "acme.validation.flightCrewMember.codeNotUnique");
+				super.state(context, false, "code", "validation.flightCrewMember.codeNotUnique");
 
 		}
 		result = !super.hasErrors(context);
