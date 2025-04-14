@@ -33,13 +33,18 @@ public class AgentTrackingLogCreateService extends AbstractGuiService<Agent, Tra
 		int masterId;
 		Claim claim;
 		List<TrackingLog> completedTrackingLogs;
+		List<TrackingLog> completedPublishedTrackingLogs;
 
 		masterId = super.getRequest().getData("masterId", int.class);
 
-		completedTrackingLogs = this.repository.findTrackingLogsByClaimIdWith100Percentage(masterId);
-
+		completedPublishedTrackingLogs = this.repository.findTrackingLogsByClaimIdWith100Percentage(masterId);
+		completedTrackingLogs = this.repository.findTrackingLogsByClaimIdCompleted(masterId);
 		claim = this.repository.findClaimById(masterId);
-		status = claim != null && (claim.isDraftMode() || completedTrackingLogs.size() == 1) && super.getRequest().getPrincipal().hasRealm(claim.getAgent());
+
+		boolean whenNotPublished = claim.isDraftMode() && completedTrackingLogs.size() < 1 && completedTrackingLogs.size() < 2;
+		boolean whenPublished = claim.isDraftMode() == false && completedPublishedTrackingLogs.size() == 1;
+
+		status = claim != null && (whenPublished || whenNotPublished) && super.getRequest().getPrincipal().hasRealm(claim.getAgent());
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -50,17 +55,24 @@ public class AgentTrackingLogCreateService extends AbstractGuiService<Agent, Tra
 		TrackingLog trackingLog;
 		int masterId;
 		Date currentDate;
+		List<TrackingLog> completedTrackingLogs;
 
 		masterId = super.getRequest().getData("masterId", int.class);
 		claim = this.repository.findClaimById(masterId);
+		completedTrackingLogs = this.repository.findTrackingLogsByClaimIdWith100Percentage(masterId);
 
 		currentDate = MomentHelper.getCurrentMoment();
 
 		trackingLog = new TrackingLog();
+		if (completedTrackingLogs.size() == 1) {
+			trackingLog.setStatus(completedTrackingLogs.get(0).getStatus());
+			trackingLog.setPercentage(100.00);
+		} else
+			trackingLog.setPercentage(0.00);
+
 		trackingLog.setDraftMode(true);
 		trackingLog.setCreationMoment(currentDate);
 		trackingLog.setUpdateMoment(currentDate);
-		trackingLog.setPercentage(0.00);
 		trackingLog.setStep("");
 		trackingLog.setResolution("");
 		trackingLog.setClaim(claim);
@@ -89,6 +101,10 @@ public class AgentTrackingLogCreateService extends AbstractGuiService<Agent, Tra
 	public void unbind(final TrackingLog trackingLog) {
 		Dataset dataset;
 		SelectChoices choicesStatus;
+		List<TrackingLog> completedTrackingLogs;
+
+		completedTrackingLogs = this.repository.findTrackingLogsByClaimIdWith100Percentage(trackingLog.getClaim().getId());
+		boolean isLastOne = completedTrackingLogs.size() == 1;
 
 		choicesStatus = SelectChoices.from(ClaimStatus.class, trackingLog.getStatus());
 
@@ -96,9 +112,9 @@ public class AgentTrackingLogCreateService extends AbstractGuiService<Agent, Tra
 		dataset.put("statuses", choicesStatus);
 		dataset.put("masterId", super.getRequest().getData("masterId", int.class));
 		dataset.put("id", trackingLog.getId());
-
-		//dataset.put("draftMode", trackingLog.getClaim().isDraftMode());
+		dataset.put("isLastOne", isLastOne);
 		dataset.put("draftMode", trackingLog.isDraftMode());
+		dataset.put("draftModeMaster", trackingLog.getClaim().isDraftMode());
 
 		super.getResponse().addData(dataset);
 	}

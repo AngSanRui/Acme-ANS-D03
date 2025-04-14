@@ -27,6 +27,9 @@ public interface AgentTrackingLogRepository extends AbstractRepository {
 	Claim findClaimByTrackingLogId(int id);
 
 	@Query("SELECT t FROM TrackingLog t WHERE t.claim.id = :claimId AND t.percentage = 100.00")
+	List<TrackingLog> findTrackingLogsByClaimIdCompleted(int claimId);
+
+	@Query("SELECT t FROM TrackingLog t WHERE t.claim.id = :claimId AND t.percentage = 100.00 AND t.draftMode = false")
 	List<TrackingLog> findTrackingLogsByClaimIdWith100Percentage(int claimId);
 
 	@Query("SELECT t FROM TrackingLog t WHERE t.claim.id = :claimId ORDER BY t.percentage DESC")

@@ -17,17 +17,27 @@
 
 <acme:form>
 	<acme:input-textbox code="agent.tracking-log.form.label.step" path="step"/>
-	<acme:input-double code="agent.tracking-log.form.label.percentage" path="percentage"/>
 	<acme:input-moment code="agent.tracking-log.form.label.updateMoment" path="updateMoment" readonly="true"/>
-	<acme:input-select code="agent.tracking-log.form.label.status" path="status"  choices="${statuses}"/>
+	<jstl:if test="${isLastOne == false}">
+		<acme:input-double code="agent.tracking-log.form.label.percentage" path="percentage"/>
+		<acme:input-select code="agent.tracking-log.form.label.status" path="status"  choices="${statuses}"/>
+	</jstl:if>	
+	<jstl:if test="${isLastOne == true}">
+		<acme:input-double code="agent.tracking-log.form.label.percentage" path="percentage" readonly="true"/>
+		<acme:input-select code="agent.tracking-log.form.label.status" path="status"  choices="${statuses}" readonly="true"/>	
+	</jstl:if>	
 	<acme:input-textarea code="agent.tracking-log.form.label.resolution" path="resolution"/>
 	
 	
 	<jstl:choose>
-		<jstl:when test="${acme:anyOf(_command, 'show|update|delete') && draftMode == true}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete') && draftMode == true && draftModeMaster == false}">
 			<acme:submit code="agent.tracking-log.form.button.update" action="/agent/tracking-log/update"/>
 			<acme:submit code="agent.tracking-log.form.button.delete" action="/agent/tracking-log/delete"/>
 			<acme:submit code="agent.tracking-log.form.button.publish" action="/agent/tracking-log/publish"/>
+		</jstl:when>
+				<jstl:when test="${acme:anyOf(_command, 'show|update|delete') && draftMode == true && draftModeMaster == true}">
+			<acme:submit code="agent.tracking-log.form.button.update" action="/agent/tracking-log/update"/>
+			<acme:submit code="agent.tracking-log.form.button.delete" action="/agent/tracking-log/delete"/>
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
 			<acme:submit code="agent.tracking-log.form.button.create" action="/agent/tracking-log/create?masterId=${masterId}"/>

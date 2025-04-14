@@ -1,6 +1,8 @@
 
 package acme.features.agent.trackingLog;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
@@ -70,14 +72,20 @@ public class AgentTrackingLogUpdateService extends AbstractGuiService<Agent, Tra
 	public void unbind(final TrackingLog trackingLog) {
 		Dataset dataset;
 		SelectChoices choicesStatus;
+		List<TrackingLog> completedTrackingLogs;
+
+		completedTrackingLogs = this.repository.findTrackingLogsByClaimIdWith100Percentage(trackingLog.getClaim().getId());
+		boolean isLastOne = completedTrackingLogs.size() == 1;
 
 		choicesStatus = SelectChoices.from(ClaimStatus.class, trackingLog.getStatus());
 
 		dataset = super.unbindObject(trackingLog, "step", "percentage", "updateMoment", "resolution", "creationMoment", "status");
 		dataset.put("statuses", choicesStatus);
 		dataset.put("masterId", trackingLog.getClaim().getId());
-		//dataset.put("draftMode", trackingLog.getClaim().isDraftMode());
+		dataset.put("id", trackingLog.getId());
+		dataset.put("isLastOne", isLastOne);
 		dataset.put("draftMode", trackingLog.isDraftMode());
+		dataset.put("draftModeMaster", trackingLog.getClaim().isDraftMode());
 
 		super.getResponse().addData(dataset);
 	}

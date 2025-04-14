@@ -64,13 +64,17 @@ public class AgentTrackingLogListService extends AbstractGuiService<Agent, Track
 		Claim claim;
 		final boolean showCreate;
 		List<TrackingLog> completedTrackingLogs;
+		List<TrackingLog> completedPublishedTrackingLogs;
 
 		masterId = super.getRequest().getData("masterId", int.class);
 		claim = this.repository.findClaimById(masterId);
 
-		completedTrackingLogs = this.repository.findTrackingLogsByClaimIdWith100Percentage(masterId);
+		completedPublishedTrackingLogs = this.repository.findTrackingLogsByClaimIdWith100Percentage(masterId);
+		completedTrackingLogs = this.repository.findTrackingLogsByClaimIdCompleted(masterId);
 
-		showCreate = (claim.isDraftMode() || completedTrackingLogs.size() == 1) && super.getRequest().getPrincipal().hasRealm(claim.getAgent());
+		boolean whenNotPublished = claim.isDraftMode() && completedTrackingLogs.size() < 1;
+		boolean whenPublished = claim.isDraftMode() == false && completedPublishedTrackingLogs.size() == 1 && completedTrackingLogs.size() < 2;
+		showCreate = (whenPublished || whenNotPublished) && super.getRequest().getPrincipal().hasRealm(claim.getAgent());
 
 		super.getResponse().addGlobal("masterId", masterId);
 		super.getResponse().addGlobal("showCreate", showCreate);
