@@ -38,6 +38,19 @@ master.menu.provider.favourite-link = Favourite link
 master.menu.consumer = Consumer
 master.menu.consumer.favourite-link = Favourite link
 
+# master.menu.customer ##########################################################
+
+master.menu.customer = Customer
+master.menu.customer.list-bookings = List Bookings
+master.menu.customer.list-passenger = List Passengers
+
+# master.menu.flightCrewMember ##########################################################
+
+master.menu.flightCrewMember = Flight Crew Member
+master.menu.flightCrewMember.list-completedFlightAssignments = List completed flight assignments
+master.menu.flightCrewMember.list-uncompletedFlightAssignments = List uncompleted flight assignments
+master.menu.flightCrewMember.list-activityLog = List activity logs
+
 # master.menu.manager ##########################################################
 
 master.menu.manager = Manager
@@ -49,6 +62,11 @@ master.menu.agent = Agent
 master.menu.agent.list-completed = Completed claims
 master.menu.agent.list-pending = Pending claims
 
+# master.menu.technician ##########################################################
+
+master.menu.technician = Technician
+master.menu.technician.list-my-maintenance-records = List my maintenance records
+master.menu.technician.list-my-tasks = List my tasks
 
 # master.menu.user-account ####################################################
 
